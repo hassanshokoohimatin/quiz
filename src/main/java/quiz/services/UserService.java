@@ -6,6 +6,7 @@ import quiz.model.User;
 import quiz.repositories.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -39,6 +40,38 @@ public class UserService {
 
     public void removeUserById(Long id){
         userRepository.deleteById(id);
+    }
+
+    public boolean isUsernameExist(String username){
+        if (userRepository.findAll().stream().filter(user -> user.getUsername().equals(username))
+                .collect(Collectors.toList()).size() == 0)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean isEmailExist(String email){
+        if (userRepository.findAll().stream().filter(user -> user.getEmail().equals(email))
+                .collect(Collectors.toList()).size() == 0)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean isMobileExist(String mobile){
+        if (userRepository.findAll().stream().filter(user -> user.getMobileNumber().equals(mobile))
+                .collect(Collectors.toList()).size() == 0)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean isNationalCodeExist(String nationalCode){
+        if (userRepository.findAll().stream().filter(user -> user.getNationalCode().equals(nationalCode))
+                .collect(Collectors.toList()).size() == 0)
+            return false;
+        else
+            return true;
     }
 
 }
