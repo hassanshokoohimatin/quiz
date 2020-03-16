@@ -3,75 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>sign up</title>
-    <link href="css/util.css" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
-<body style="background: url('images/signUp.jpg') ; background-size: cover">
+<body style="background-color: #ced4da ; background-size: cover">
 
-<div class="container">
+<div class="container" style="justify-content: center ; display: flex">
     <form role="form" th:action="@{/submitSignUp}" method="post" th:object="${userDto}">
         <h2>Registration</h2>
         <div class="form-group">
-            <label for="firstName" class="col-sm-3 custom-control-label">first name</label>
+            <label for="firstName">first name</label>
             <div class="col-sm-9">
                 <input th:field="*{firstName}" type="text" id="firstName" placeholder="First Name" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
-            <label for="lastName" class="col-sm-3 custom-control-label">Last Name</label>
+            <label for="lastName">Last Name</label>
             <div class="col-sm-9">
                 <input th:field="*{lastName}" type="text" id="lastName" placeholder="Last Name" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
-            <label for="email" class="col-sm-3 custom-control-label">Email</label>
+            <label for="email">Email</label>
             <div class="col-sm-9">
                 <input th:field="*{email}" type="email" id="email" placeholder="Email" class="form-control" name= "email">
             </div>
         </div>
         <div class="form-group">
-            <label for="phoneNumber" class="col-sm-3 custom-control-label">Phone number</label>
+            <label for="phoneNumber">Phone number</label>
             <div class="col-sm-9">
                 <input th:field="*{mobileNumber}" type="text" id="phoneNumber" placeholder="Phone number" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
-            <label for="nationalCode" class="col-sm-3 custom-control-label">National Code</label>
+            <label for="nationalCode">National Code</label>
             <div class="col-sm-9">
                 <input th:field="*{nationalCode}" type="text" id="nationalCode" placeholder="National Code" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
-            <label for="username" class="col-sm-3 custom-control-label">username</label>
+            <label for="username">username</label>
             <div class="col-sm-9">
                 <input th:field="*{username}" type="text" id="username" placeholder="username" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
-            <label for="password" class="col-sm-3 custom-control-label">Password</label>
+            <label for="password">Password</label>
             <div class="col-sm-9">
                 <input th:field="*{password}" type="password" id="password" placeholder="Password" class="form-control">
             </div>
         </div>
         <div class="form-group">
-            <label class="custom-control-label col-md-3">Role</label>
+            <label>Role</label>
             <div>
                 <select th:field="*{role}">
-                    <option th:each="role : ${allRoles}" th:value="${role.roleType.toString()}" th:text="${role.roleType.toString()}"
-                            th:if="${role.roleType.toString() != 'Admin'}"></option>
+                    <option th:each="role : ${allRoles}"
+                            th:value="${role.roleType.toString()}"
+                            th:text="${role.roleType.toString()}"
+                            th:if="${role.roleType.toString() != 'Admin'}">
+                    </option>
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3">Gender</label>
+            <label>Gender</label>
             <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-5">
                         <label class="radio-inline">
                             <input th:field="*{gender}" type="radio" id="femaleRadio" value="Female">Female
                         </label>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-5">
                         <label class="radio-inline">
                             <input th:field="*{gender}" type="radio" id="maleRadio" value="Male">Male
                         </label>

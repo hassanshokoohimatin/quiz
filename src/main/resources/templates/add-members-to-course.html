@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add-members-to-course</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h2>teachers</h2>
+
+<!-- model : "course" without teacher and students *** model : "allTeachers" -->
+
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>teacher</th>
+        <th>select</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher : ${allTeachers}">
+        <td th:text="${teacher.firstName + ' ' + teacher.lastName}">teacher name</td>
+        <td><a th:href="@{/admin/addTeacherToCourse/(teacherId = ${teacher.id} , courseId = ${course.id})}" class="btn btn-warning">select teacher</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

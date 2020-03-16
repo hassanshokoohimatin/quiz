@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>search-users-result</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!-- model : "searchUserResult" : List<User> -->
+
+<div>
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>username</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${searchUserResult}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.role.roleType.toString()}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

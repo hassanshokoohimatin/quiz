@@ -20,7 +20,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true , nullable = false)
+    @Column(unique = true)
     private String title;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

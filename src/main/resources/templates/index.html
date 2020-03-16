@@ -1,41 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>index</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/index.css" rel="stylesheet" type="text/css">
-    <link href="css/util.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-color: #9fcdff">
 
-<div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-input100 p-l-55 p-r-55 p-t-65 p-b-50">
-            <form class="login100-form" action="/signIn" method="get">
-                <span class="login100-form-title p-b-33">
+<div class="container" style="justify-content: center ; display: flex">
+    <div>
+        <div>
+            <form class="form-control-lg" action="/signIn" method="get">
+                <span>
                     Account Login
                 </span>
-                <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="username" placeholder="username">
-                    <span class="focus-input100-1"></span>
-                    <span class="focus-input100-2"></span>
+                <div>
+                    <input type="text" name="username" placeholder="username">
                 </div>
-                <div class="wrap-input100 rs1 validate-input">
-                    <input class="input100" type="password" name="password" placeholder="password">
-                    <span class="focus-input100-1"></span>
-                    <span class="focus-input100-2"></span>
+                <div>
+                    <input type="password" name="password" placeholder="password">
                 </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit">
+                <div>
+                    <button type="submit" class="btn-primary">
                         sign in
                     </button>
                 </div>
-                <div class="text-center">
-                    <span class="txt1">
+                <div>
+                    <span>
                         create an account?
                     </span>
-                    <a href="/signUp" class="txt2 hov1">
+                    <a href="/signUp">
                         sign up
                     </a>
                 </div>

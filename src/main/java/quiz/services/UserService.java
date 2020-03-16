@@ -2,7 +2,9 @@ package quiz.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import quiz.model.Role;
 import quiz.model.User;
+import quiz.model.enums.Status;
 import quiz.repositories.UserRepository;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> findUsersByStatus(String status){
-        return userRepository.findUsersByStatusEquals(status);
+    public List<User> findUsersByStatus(Status status){
+        return userRepository.findUsersByStatus(status);
     }
 
     public void saveUser(User user){
@@ -40,6 +42,14 @@ public class UserService {
 
     public void removeUserById(Long id){
         userRepository.deleteById(id);
+    }
+
+    public User findById(Long id){
+        return userRepository.findById(id).get();
+    }
+
+    public List<User> findUsersByRole(Role role){
+        return userRepository.findUsersByRole(role);
     }
 
     public boolean isUsernameExist(String username){

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list all courses</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+    <div>
+        <H2 style="text-align: center">List of Courses </H2>
+        <a th:href="@{/admin/addNewCourse}">add new course</a>
+        <table class="table table-stripped table-dark">
+            <thead>
+            <tr>
+                <th>title</th>
+                <th>start date</th>
+                <th>end date</th>
+                <th>teacher</th>
+                <th>students</th>
+            </tr>
+            </thead>
+            <tr th:each="course:${allCourses}">
+                <td th:text="${course.title}">title</td>
+                <td th:text="${course.startDate.toString()}">start date</td>
+                <td th:text="${course.endDate.toString()}">end date</td>
+                <td th:text="${course.teacher.firstName + ' ' + course.teacher.lastName}">teacher</td>
+                <td><a th:href="@{/admin/listStudentsOfACourse/(id = ${course.id})}" class="btn btn-warning">students</a></td>
+            </tr>
+        </table>
+    </div>
+
+</div><!-- /.container -->
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>new course</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body style="background-color: hotpink">
+
+
+    <h2 style="text-align: center">تعریف دوره جدید</h2><br>
+
+
+    <form th:action="@{/admin/addNewCourse}" th:object="${newCourse}" method="post">
+
+        <div class="form-group">
+            <label>عنوان دوره</label>
+            <input class="form-control" type="text" th:field="*{title}" placeholder="course title" name="title">
+        </div>
+        <div class="form-group">
+            <label>تاریخ شروع</label>
+            <input class="form-control" type="date" th:field="*{startDate}" placeholder="start date" name="startDate">
+        </div>
+        <div class="form-group">
+            <label>تاریخ پایان</label>
+            <input class="form-control" type="date" th:field="*{endDate}" placeholder="end date" name="endDate">
+        </div>
+
+        <button class="btn btn-primary" type="submit">create</button>
+
+    </form>
+
+
+</body>
+</html>
