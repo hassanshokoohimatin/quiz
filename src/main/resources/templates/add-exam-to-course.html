@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add-quiz-to-course</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!-- model : "exam" *** model : "courseId" the id of course -->
+
+<div style="background-color: black ; opacity: 0.9 ; width: 600px ; height: 600px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+    <form class="form-group" th:action="@{/teacher/addExam/(courseId = ${courseId})}" method="post" th:object="${exam}">
+                <span style="padding-left: 30px ; color: white">
+                    تعربف آزمون
+                </span>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" type="text" th:field="*{name}" name="name" placeholder="نام آزمون">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" type="text" th:field="*{description}" name="description" placeholder="description">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" type="date" th:field="*{createdDate}" name="description" placeholder="تاریخ ایجاد دوره">
+        </div>
+        <div style="padding: 1px 30px 30px">
+            <button type="submit" class="btn btn-primary">
+                اضافه کردن آزمون
+            </button>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -5,38 +5,36 @@
     <title>index</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
-<body style="background-color: #9fcdff">
 
-<div class="container" style="justify-content: center ; display: flex">
-    <div>
-        <div>
-            <form class="form-control-lg" action="/signIn" method="get">
-                <span>
+<body style="background: navy ; background-size: cover">
+
+<div style="background-color: black ; opacity: 0.9 ; width: 400px ; height: 300px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+    <form class="form-group" action="/signIn" method="get">
+                <span style="padding-left: 30px ; color: white">
                     Account Login
                 </span>
-                <div>
-                    <input type="text" name="username" placeholder="username">
-                </div>
-                <div>
-                    <input type="password" name="password" placeholder="password">
-                </div>
-                <div>
-                    <button type="submit" class="btn-primary">
-                        sign in
-                    </button>
-                </div>
-                <div>
-                    <span>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" type="text" name="username" placeholder="username">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" type="password" name="password" placeholder="password">
+        </div>
+        <div style="padding: 1px 30px 30px">
+            <button type="submit" class="btn btn-primary">
+                sign in
+            </button>
+        </div>
+        <div style="padding: 1px 30px 30px">
+                    <span style="color: white">
                         create an account?
                     </span>
-                    <a href="/signUp">
-                        sign up
-                    </a>
-                </div>
-            </form>
+            <a class="btn btn-primary" href="/signUp">
+                sign up
+            </a>
         </div>
-    </div>
+    </form>
 </div>
 
 </body>
+
 </html>

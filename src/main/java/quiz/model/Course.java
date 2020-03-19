@@ -35,4 +35,7 @@ public class Course {
     @ManyToMany
     private List<User> students;
 
+    @OneToMany(mappedBy = "course" , cascade = CascadeType.ALL)
+    private List<Exam> quizzes;
+
 }

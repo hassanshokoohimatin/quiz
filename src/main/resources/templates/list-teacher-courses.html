@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list-teacher-courses</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!-- model : "courses" all courses of this teacher *** model : "teacherId" id of this teacher-->
+
+<div class="alert alert-success" role="alert" style="margin-bottom: 0">
+    <h3 class="alert-heading" style="text-align: center">list of your courses</h3>
+</div>
+
+<table class="table table-stripped table-dark">
+    <thead>
+    <tr>
+        <th>عنوان دوره</th>
+        <th>تاریخ شروع</th>
+        <th>تاریخ پایان</th>
+        <th>آزمون های این دوره</th>
+        <th>افزودن آزمون به این دوره</th>
+    </tr>
+    </thead>
+    <tr th:each="course:${courses}">
+        <td th:text="${course.title}">عنوان</td>
+        <td th:text="${course.startDate.toString()}">تاریخ شروع</td>
+        <td th:text="${course.endDate.toString()}">تاربخ پایان</td>
+
+        <td><a th:href="@{/teacher/listExamsOfCourse/(courseId = ${course.id})}" class="btn btn-primary">آزمون های این دوره</a></td>
+        <td><a th:href="@{/teacher/addExamToCourse/(courseId = ${course.id})}" class="btn btn-primary">افزودن آزمون به این دوره</a></td>
+
+    </tr>
+</table>
+
+<a th:href="@{/teacher/backToMainMenuOfTeacher/(teacherId = ${teacherId})}" class="btn btn-primary">برگشت به داشبورد اختصاصی</a>
+
+</body>
+</html>

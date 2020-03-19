@@ -9,7 +9,7 @@
 
 <!-- model : "course" *** model : "allActiveStudents" -->
 
-<h2>students</h2>
+<h2 style="text-align: center">لیست دانش آموران</h2>
 
 <table class="table table-striped table-dark">
     <thead>
@@ -17,7 +17,7 @@
         <th>نام کاربری</th>
         <th>نام</th>
         <th>نام خانوادگی</th>
-        <th>افزودن</th>
+        <th colspan="2">افزودن</th>
     </tr>
     </thead>
     <tbody>
@@ -25,10 +25,23 @@
         <td th:text="${student.username}">username</td>
         <td th:text="${student.firstName}">first name</td>
         <td th:text="${student.lastName}">last name</td>
-        <td><a th:href="@{/admin/addStudentToCourse2/(studentId = ${student.id} , courseId = ${course.id})}" class="btn btn-warning">اضافه کردن این دانش آموز به دوره</a></td>
+        <td><a class="btn btn-warning" th:onclick="|addConfirm(${student.id})|">اضافه کردن این دانش آموز به دوره</a></td>
+        <td><a hidden class="btn btn-primary" th:href="@{/admin/addStudentToCourse2/(studentId = ${student.id} , courseId = ${course.id})}" th:id="${student.id}">تایید افزودن</a></td>
     </tr>
     </tbody>
 </table>
+
+<a class="btn btn-primary" href="/admin/backToAdmin">برگشت به داشبورد اختصاصی</a>
+
+<script>
+    function addConfirm(id) {
+        if (document.getElementById(id).hidden == false)
+            document.getElementById(id).hidden = true;
+        else
+            document.getElementById(id).hidden = false;
+    }
+</script>
+
 
 </body>
 </html>

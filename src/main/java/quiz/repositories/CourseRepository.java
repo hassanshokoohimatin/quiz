@@ -8,10 +8,13 @@ import quiz.model.Course;
 import quiz.model.User;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course , Long> {
 
     public Course findByTitle(String title);
+
+    public List<Course> findCoursesByTeacherId(Long teacherId);
 
 }

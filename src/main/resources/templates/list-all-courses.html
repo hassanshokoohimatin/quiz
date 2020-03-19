@@ -10,16 +10,16 @@
 <div class="container">
 
     <div>
-        <H2 style="text-align: center">List of Courses </H2>
-        <a th:href="@{/admin/addNewCourse}">add new course</a>
+        <H2 style="text-align: center">لیست تمام دوره ها</H2>
+        <a class="btn btn-dark" style="color: white" th:href="@{/admin/addNewCourse}">افزودن دوره جدید</a>
         <table class="table table-stripped table-dark">
             <thead>
             <tr>
-                <th>title</th>
-                <th>start date</th>
-                <th>end date</th>
-                <th>teacher</th>
-                <th>students</th>
+                <th>عنوان دوره</th>
+                <th>تاریخ شروع</th>
+                <th>تاریخ پایان</th>
+                <th>استاد</th>
+                <th>دانش آموزان دوره</th>
             </tr>
             </thead>
             <tr th:each="course:${allCourses}">
@@ -27,9 +27,10 @@
                 <td th:text="${course.startDate.toString()}">start date</td>
                 <td th:text="${course.endDate.toString()}">end date</td>
                 <td th:text="${course.teacher.firstName + ' ' + course.teacher.lastName}">teacher</td>
-                <td><a th:href="@{/admin/listStudentsOfACourse/(id = ${course.id})}" class="btn btn-warning">students</a></td>
+                <td><a th:href="@{/admin/listStudentsOfACourse/(id = ${course.id})}" class="btn btn-warning">دانش آموزان دوره</a></td>
             </tr>
         </table>
+        <a class="btn btn-dark" style="color: white" href="/admin/backToAdmin">برگشت به داشبورد اختصاصی</a>
     </div>
 
 </div><!-- /.container -->

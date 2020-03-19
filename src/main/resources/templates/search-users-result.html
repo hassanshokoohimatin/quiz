@@ -9,14 +9,18 @@
 
 <!-- model : "searchUserResult" : List<User> -->
 
-<div>
+<div class="alert alert-primary" role="alert">
+    نتیجه جستجو
+</div>
+
 <table class="table table-striped table-dark">
     <thead>
     <tr>
-        <th>username</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>role</th>
+        <th>نام کاربری</th>
+        <th>نام</th>
+        <th>نام خانوادگی</th>
+        <th>رل(نقش)</th>
+        <th colspan="3">حذف/ویرایش</th>
     </tr>
     </thead>
     <tbody>
@@ -25,9 +29,29 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.role.roleType.toString()}"></td>
+        <td>
+            <a class="btn btn-warning" th:href="@{/admin/editUser/(id = ${user.id})}">ویرایش</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" th:onclick="|delConfirm(${user.id})|">حذف</a>
+        </td>
+        <td>
+            <a hidden class="btn btn-danger" th:id="${user.id}" th:href="@{/admin/deleteUser/(id = ${user.id})}">تایید حذف</a>
+        </td>
     </tr>
     </tbody>
 </table>
-</div>
+
+<a class="btn btn-primary" href="/admin/backToAdmin">برگشت به داشبورد اختصاصی</a>
+
+<script>
+    function delConfirm(id) {
+        if (document.getElementById(id).hidden == false)
+            document.getElementById(id).hidden = true;
+        else
+            document.getElementById(id).hidden = false;
+    }
+</script>
+
 </body>
 </html>

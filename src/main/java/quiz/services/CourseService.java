@@ -30,4 +30,7 @@ public class CourseService {
         courseRepository.save(course);
     }
 
+    public List<Course> findAllCoursesByTeacherId(Long teacherId){
+        return courseRepository.findCoursesByTeacherId(teacherId);
+    }
 }

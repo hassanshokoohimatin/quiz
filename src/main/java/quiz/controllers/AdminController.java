@@ -6,9 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import quiz.dto.SearchDto;
 import quiz.model.Course;
-import quiz.model.Role;
 import quiz.model.User;
-import quiz.model.enums.RoleType;
 import quiz.model.enums.Status;
 import quiz.services.CourseService;
 import quiz.services.RoleService;
@@ -205,21 +203,55 @@ public class AdminController {
         String firstName = searchDto.getFirstName();
         String lastName = searchDto.getLastName();
 
+        List<User> users = userService.findAll().stream().filter(user -> user.getStatus().equals(Status.Active))
+                .filter(user -> user.getRole().getRoleType().toString().equals(searchDto.getRole()))
+                .collect(Collectors.toList());
+
         List<User> searchUserResult = new ArrayList<>();
 
-        for (
-                User user : userService.findAll().stream().filter(user -> user.getStatus().equals(Status.Active))
-                .filter(user -> user.getRole().getRoleType().toString().equals(searchDto.getRole()))
-                .collect(Collectors.toList())
-            ){
+            if (firstName.isEmpty() && lastName.isEmpty()){
+                searchUserResult = users;
 
-            if (user.getFirstName().contains(firstName) || user.getLastName().contains(lastName))
-                searchUserResult.add(user);
-        }
+                model.addAttribute("searchUserResult" , searchUserResult);
+                return "search-users-result";
+            }
+            if ( !firstName.isEmpty() && !lastName.isEmpty() ){
+                searchUserResult = users.stream().filter(user -> user.getLastName().equals(lastName))
+                        .filter(user -> user.getFirstName().equals(firstName))
+                        .collect(Collectors.toList());
 
+                model.addAttribute("searchUserResult" , searchUserResult);
+                return "search-users-result";
+            }
+            if (firstName.isEmpty() && !lastName.isEmpty()){
+                searchUserResult = users.stream().filter(user -> user.getLastName().equals(lastName))
+                        .collect(Collectors.toList());
 
-        model.addAttribute("searchUserResult" , searchUserResult);
-        return "search-users-result";
+                model.addAttribute("searchUserResult" , searchUserResult);
+                return "search-users-result";
+            }
+            else {
+                searchUserResult = users.stream().filter(user -> user.getFirstName().equals(firstName))
+                        .collect(Collectors.toList());
+
+                model.addAttribute("searchUserResult" , searchUserResult);
+                return "search-users-result";
+            }
+
+    }
+
+    @RequestMapping(value = "/editUser")
+    public String editUser(@RequestParam("id") Long id){
+
+        //TODO : complete this action
+        return "";
+    }
+
+    @RequestMapping(value = "/deleteUser")
+    public String deleteUser(@RequestParam("id") Long id){
+
+        userService.removeUserById(id);//TODO : can not delete user because user is child of course...??
+        return "search-users";
     }
 
 }
