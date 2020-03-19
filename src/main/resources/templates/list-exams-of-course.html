@@ -6,7 +6,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
-<!-- model : "exams" -->
+<!-- model : "exams" *** model : "courseId" -->
 
 <body>
 
@@ -29,7 +29,7 @@
         <td><form th:action="@{/teacher/editExam/__${exam.id}__}"><button type="submit" class="btn btn-warning"></button></form>edit</td>
         <td>questions</td>
         <td>
-            <button class="btn btn-light" th:onclick="|confirm(${exam.id})|">publish exam</button>
+            <button th:if="${exam.published == false}" class="btn btn-light" th:onclick="|confirm(${exam.id})|">publish exam</button>
         </td>
         <td>
             <form th:action="@{/signIn}">
@@ -37,7 +37,7 @@
             </form>
         </td>
         <td>
-            <button class="btn btn-light" th:onclick="|confirm(${exam.id})|">unpublish exam</button>
+            <button th:if="${exam.published == true}" class="btn btn-light" th:onclick="|confirm(${exam.id})|">unpublish exam</button>
         </td>
         <td>
             <form th:action="@{/signIn}">
@@ -45,11 +45,11 @@
             </form>
         </td>
         <td>
-            <button class="btn btn-light" onclick="confirm(500)">delete</button>
+            <button class="btn btn-light" th:onclick="confirm(500)">delete</button>
         </td>
         <td>
-            <form th:action="@{/exam/delete/(examId = ${exam.id})}">
-                <input hidden class="btn btn-danger" id="500" type="submit" value="delete confirm">
+            <form th:action="@{/teacher/delete/__${exam.id}__/__${courseId}__}">
+                <input hidden class="btn btn-danger" th:id="500" type="submit" value="delete confirm">
             </form>
         </td>
     </tr>

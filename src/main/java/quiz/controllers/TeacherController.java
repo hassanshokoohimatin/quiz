@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import quiz.dto.EditExamDto;
 import quiz.model.Course;
 import quiz.model.Exam;
@@ -80,10 +81,10 @@ public class TeacherController {
     @RequestMapping(value = "/listExamsOfCourse")
     public String listExamsOfCourse(Model model , @RequestParam("courseId") Long courseId){
 
-        List<Exam> exams = new ArrayList<>();
-        exams = examService.findExamsByCourseId(courseId);
+        List<Exam> exams = examService.findExamsByCourseId(courseId);
 
         model.addAttribute("exams" , exams);
+        model.addAttribute("courseId" , courseId);
 
         return "list-exams-of-course";
     }
@@ -104,4 +105,42 @@ public class TeacherController {
         return "edit-exam";
     }
 
+    @RequestMapping(value = "/submitEditExam/{examId}")
+    public String editExam(Model model ,
+                           @ModelAttribute EditExamDto editExamDto ,
+                           @PathVariable(value = "examId") Long examId){
+
+        Exam exam = examService.findExamById(examId);
+
+        exam.setName(editExamDto.getName());
+        exam.setDescription(editExamDto.getDescription());
+
+        examService.saveExam(exam);
+
+        Long teacherId = examService.findExamById(examId).getCreatedBy().getId();
+        List<Course> courses = courseService.findAllCoursesByTeacherId(teacherId);
+
+        model.addAttribute("courses" , courses);
+        model.addAttribute("teacherId" , teacherId);
+
+        return "list-teacher-courses";
+    }
+
+    @RequestMapping(value = "/delete/{examId}/{courseId}")
+    public String delete(Model model ,
+                         @PathVariable(value = "examId") Long examId ,
+                         @PathVariable(value = "courseId") Long courseId){
+
+        examService.removeExamById(examId);
+
+        model.addAttribute("courseId" , courseId);
+        model.addAttribute("exams" , examService.findExamsByCourseId(courseId));
+
+        return "list-exams-of-course";
+    }
+
 }
+
+
+
+

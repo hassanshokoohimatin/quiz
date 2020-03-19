@@ -33,7 +33,7 @@ public class Exam {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdDate;
 
-    private boolean isPublished = false;
+    private boolean isPublished;
 
     @OneToOne
     private User createdBy;

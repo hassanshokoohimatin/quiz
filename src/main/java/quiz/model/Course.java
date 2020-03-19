@@ -36,6 +36,6 @@ public class Course {
     private List<User> students;
 
     @OneToMany(mappedBy = "course" , cascade = CascadeType.ALL)
-    private List<Exam> quizzes;
+    private List<Exam> exams;
 
 }
