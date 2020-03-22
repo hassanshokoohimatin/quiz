@@ -6,8 +6,8 @@
     <link th:href="@{/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
 </head>
 
-<!-- model : "editExamDto" includes name and description *** model : "examId" the id of exam to be edited -->
-<!-- model : "examName" *** model : "examDescription" *** model : "exams"-->
+<!-- model : "editExamDto" includes name and description and time *** model : "examId" the id of exam to be edited -->
+<!-- model : "examName" *** model : "examDescription" *** model : "examTime: *** model : "exams"-->
 
 <body>
 
@@ -16,12 +16,14 @@
     <tr>
         <td>name</td>
         <td>description</td>
+        <td>time</td>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td th:text="${examName}"></td>
         <td th:text="${examDescription}"></td>
+        <td th:text="${examTime}"></td>
     </tr>
     </tbody>
 </table>
@@ -40,6 +42,13 @@
         <div style="padding: 5px 30px 30px">
             <input class="form-control" type="text" th:field="*{editExamDto.description}">
         </div>
+        <span style="padding-left: 30px ; color: white">
+                    edit time
+        </span>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" type="text" th:field="*{editExamDto.time}">
+        </div>
+
         <div style="padding: 1px 30px 30px">
             <button type="submit" class="btn btn-primary">
                 edit

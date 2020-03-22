@@ -26,6 +26,9 @@ public class Exam {
     @NotNull(message = "Please provide a name")
     private String name;
 
+    @NotNull(message = "Please provide the time required for the exam on minutes")
+    private Integer time;
+
     @Size(max = 500 , message = "The description can't be longer than 500 characters")
     @NotNull(message = "Please provide a description")
     private String description;
@@ -41,7 +44,7 @@ public class Exam {
     @ManyToOne
     private Course course;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Question> questions;
 
 }

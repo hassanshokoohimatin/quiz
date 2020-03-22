@@ -19,6 +19,8 @@ import java.util.List;
 @RequestMapping("/teacher")
 public class TeacherController {
 
+    private static Long signedInTeacherId = 0L;
+
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -40,6 +42,8 @@ public class TeacherController {
 
         model.addAttribute("courses" , courses);
         model.addAttribute("teacherId" , teacherId);
+
+        signedInTeacherId = teacherId ;
 
         return "list-teacher-courses";
 
@@ -67,6 +71,7 @@ public class TeacherController {
         newExam.setCreatedDate(exam.getCreatedDate());
         newExam.setCourse(courseService.findCourseById(courseId));
         newExam.setCreatedBy(userService.findById(courseService.findCourseById(courseId).getTeacher().getId()));
+        newExam.setTime(exam.getTime());
         newExam.setPublished(false);
         newExam.setQuestions(null);
 
@@ -100,6 +105,7 @@ public class TeacherController {
         model.addAttribute("examId" , examId);
         model.addAttribute("examName" , examService.findExamById(examId).getName());
         model.addAttribute("examDescription" , examService.findExamById(examId).getDescription());
+        model.addAttribute("examTime" , examService.findExamById(examId).getTime());
         model.addAttribute("exams" , exams);
 
         return "edit-exam";
@@ -114,6 +120,7 @@ public class TeacherController {
 
         exam.setName(editExamDto.getName());
         exam.setDescription(editExamDto.getDescription());
+        exam.setTime(editExamDto.getTime());
 
         examService.saveExam(exam);
 
@@ -137,6 +144,30 @@ public class TeacherController {
         model.addAttribute("exams" , examService.findExamsByCourseId(courseId));
 
         return "list-exams-of-course";
+    }
+
+    @RequestMapping(value = "/submission/{examId}/{courseId}")
+    public String submission(Model model ,
+                             @PathVariable(value = "examId") Long examId ,
+                             @PathVariable(value = "courseId") Long courseId){
+
+        Exam exam = examService.findExamById(examId);
+        List<Exam> exams = examService.findExamsByCourseId(courseId);
+
+        if (exam.isPublished() == false){
+            exam.setPublished(true);
+            examService.saveExam(exam);
+            model.addAttribute("exams" , exams);
+            model.addAttribute("courseId" , courseId);
+            return "list-exams-of-course";
+        }
+        else {
+            exam.setPublished(false);
+            examService.saveExam(exam);
+            model.addAttribute("exams" , exams);
+            model.addAttribute("courseId" , courseId);
+            return "list-exams-of-course";
+        }
     }
 
 }

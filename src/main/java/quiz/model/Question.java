@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import quiz.model.enums.QuestionType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -29,7 +28,18 @@ public class Question {
     @NotNull(message = "Question text not provided")
     private String text;
 
+    @NotNull(message = "Question title can not be empty")
+    private String title;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdDate;
+
+    private float defaultScore;
+
+    @Enumerated(EnumType.STRING)
+    protected QuestionType type;
+
+    @ManyToOne
+    private User createdBy;
 
 }

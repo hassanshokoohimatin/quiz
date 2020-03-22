@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>student</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
+
+<!-- model : "studentId" -->
+
 <body>
+
+<div class="alert alert-success" role="alert">
+    <h2 class="alert-heading" style="text-align: center">
+        students page
+    </h2>
+</div>
+
+<div style="width: 400px ; height: 600px ; background-color: #7abaff">
+
+    <a class="btn btn-primary" th:href="@{/student/listStudentCourses/__${studentId}__}">list of your courses</a>
+
+</div>
 
 </body>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list-questions-to-add-to-exam</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- model : "questions" questionBankOfTeacher except those not exist in the exam *** model : "examId"
+     model : "questionTypes" all question types (List<String>) *** model : questionTypeDto -->
+
+<body>
+
+
+<form th:action="@{/question/newQuestion/__${examId}__}" th:object="${questionTypeDto}">
+    <select th:field="*{questionType}">
+        <option th:each="item : ${questionTypes}" th:value="${item}" th:text="${item}" th:name="selectedQuestionType">
+        </option>
+    </select>
+    <input class="btn btn-primary" type="submit" value="create">
+</form>
+
+
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>title</th>
+        <th>default score</th>
+        <th>type</th>
+        <th colspan="2">add this question to exam</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.title}"></td>
+        <td th:text="${question.defaultScore}"></td>
+        <td th:text="${question.type.toString()}"></td>
+        <td><button class="btn btn-primary" th:onclick="|addConfirm(${question.id})|">add</button></td>
+        <td>
+            <form th:action="@{/question/addSelectedQuestionToExam/__${question.id}__/__${examId}__}">
+                <input hidden class="btn btn-light" type="submit" th:id="${question.id}" value="add confirm">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function addConfirm(id) {
+        if (document.getElementById(id).hidden == false)
+            document.getElementById(id).hidden = true;
+        else
+            document.getElementById(id).hidden = false;
+    }
+</script>
+
+</body>
+</html>

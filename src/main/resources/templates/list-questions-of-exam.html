@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list-questions-of-exam</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<!-- model : "questions" of an exam *** model : "examId" the id of exam-->
+
+<body>
+
+<div class="alert alert-success" role="alert">
+    <h2 class="alert-heading">list of questions of this exam</h2>
+</div>
+
+<form th:action="@{/question/addQuestion/__${examId}__}">
+    <button class="btn btn-primary" type="submit">add question to this exam</button>
+</form>
+
+<table class="tab table-striped table-primary">
+    <thead>
+    <tr>
+        <th>text</th>
+        <th>title</th>
+        <th>date</th>
+        <th>default score</th>
+        <th colspan="3">action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.text}"></td>
+        <td th:text="${question.title}"></td>
+        <td th:text="${question.createdDate}"></td>
+        <td th:text="${question.defaultScore}"></td>
+        <td>
+            <form th:action="@{/question/editQuestion/__${question.id}__/__${examId}__}">
+                <button class="btn btn-warning" type="submit">edit</button>
+            </form>
+        </td>
+        <td>
+            <button class="btn btn-warning" th:onclick="|deleteConfirm(${question.id})|">delete</button>
+        </td>
+        <td>
+            <form th:action="@{/question/deleteQuestion/__${question.id}__/__${examId}__}">
+                <input hidden type="submit" class="btn btn-danger" th:id="${question.id}" value="delete confirm">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function deleteConfirm(id) {
+        if (document.getElementById(id).hidden == false)
+            document.getElementById(id).hidden = true;
+        else
+            document.getElementById(id).hidden = false;
+    }
+</script>
+
+</body>
+</html>

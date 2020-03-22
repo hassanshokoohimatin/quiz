@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>create-new-multiChoice-question</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- model : "multiChoiceQuestion" *** model : "examId" -->
+
+<body>
+
+<div class="alert alert-success" role="alert">
+    create new multiChoice question
+</div>
+
+    <form id="myForm" th:action="@{/question/addNewMultiChoiceQuestion/__${examId}__}" class="form-group"
+                      th:object="${multiChoiceQuestion}" method="post">
+        <input class="btn btn-primary" type="submit" id="submitButton" th:value="create">
+        <div class="form-control">
+            <input type="text" th:field="*{text}">
+        </div>
+        <div class="form-control">
+            <input type="text" th:field="*{title}">
+        </div>
+        <div class="form-control">
+            <input type="text" th:field="*{defaultScore}">
+        </div>
+        <div class="form-control">
+            <input type="date" th:field="*{createdDate}">
+        </div>
+        <div class="form-control">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th colspan="2">
+                    text of answer
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="text" th:field="*{answers[0].text}"></td>
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{answers[1].text}"></td>
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{answers[2].text}"></td>
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{answers[3].text}"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+</form>
+
+</body>
+</html>

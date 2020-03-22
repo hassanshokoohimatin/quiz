@@ -15,8 +15,9 @@
     <thead>
     <tr>
         <td>name</td>
-        <td>date</td>
+        <td>create date</td>
         <td>number of questions</td>
+        <td>time</td>
         <td colspan="8">action</td>
     </tr>
     </thead>
@@ -25,36 +26,43 @@
         <td th:text="${exam.name}"></td>
         <td th:text="${exam.createdDate}"></td>
         <td th:text="${exam.questions.size()}"></td>
+        <td th:text="${exam.time}"></td>
 
         <td><form th:action="@{/teacher/editExam/__${exam.id}__}"><button type="submit" class="btn btn-warning"></button></form>edit</td>
-        <td>questions</td>
         <td>
-            <button th:if="${exam.published == false}" class="btn btn-light" th:onclick="|confirm(${exam.id})|">publish exam</button>
-        </td>
-        <td>
-            <form th:action="@{/signIn}">
-                <input hidden class="btn btn-danger" th:id="${exam.id}" type="submit" value="publish confirm">
+            <form th:action="@{/question/questions/__${exam.id}__}">
+                <button type="submit" class="btn btn-primary" value="questions">questions</button>
             </form>
         </td>
         <td>
-            <button th:if="${exam.published == true}" class="btn btn-light" th:onclick="|confirm(${exam.id})|">unpublish exam</button>
+            <button th:if="${exam.published == false}" class="btn btn-light" th:onclick="confirm(500)">publish exam</button>
         </td>
         <td>
-            <form th:action="@{/signIn}">
-                <input hidden class="btn btn-danger" th:id="${exam.id}" type="submit" value="unpublish confirm">
+            <form th:action="@{/teacher/submission/__${exam.id}__/__${courseId}__}">
+                <input hidden class="btn btn-danger" th:id="500" type="submit" value="publish confirm">
             </form>
         </td>
         <td>
-            <button class="btn btn-light" th:onclick="confirm(500)">delete</button>
+            <button th:if="${exam.published == true}" class="btn btn-light" th:onclick="confirm(700)">unpublish exam</button>
+        </td>
+        <td>
+            <form th:action="@{/teacher/submission/__${exam.id}__/__${courseId}__}">
+                <input hidden class="btn btn-danger" th:id="700" type="submit" value="unpublish confirm">
+            </form>
+        </td>
+        <td>
+            <button class="btn btn-light" th:onclick="confirm(1000)">delete</button>
         </td>
         <td>
             <form th:action="@{/teacher/delete/__${exam.id}__/__${courseId}__}">
-                <input hidden class="btn btn-danger" th:id="500" type="submit" value="delete confirm">
+                <input hidden class="btn btn-danger" th:id="1000" type="submit" value="delete confirm">
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<a th:href="@{/teacher/listTeacherCourses/(teacherId = ${exams.get(0).course.teacher.id})}" class="btn btn-primary">back to courses</a>
 
 <script>
     function confirm(id) {

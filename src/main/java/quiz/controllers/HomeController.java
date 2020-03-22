@@ -82,7 +82,11 @@ public class HomeController {
             if (signedInUserStatus.equals(Status.Active)){
 
                 if (signedInUser.getRole().equals(roleService.findById(1L))){return "admin";}
-                if (signedInUser.getRole().equals(roleService.findById(2L))){return "student";}
+                if (signedInUser.getRole().equals(roleService.findById(2L))){
+
+                    model.addAttribute("studentId" , signedInUser.getId());
+                    return "student";
+                }
                 else {
 
                     model.addAttribute("teacherId" , signedInUser.getId());

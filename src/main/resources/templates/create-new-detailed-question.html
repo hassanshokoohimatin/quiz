@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>create-new-detailed-question</title>
+</head>
+
+<!-- model : "detailedQuestion" *** model:"examId" -->
+
+<body style="background: navy ; background-size: cover">
+
+<div style="background-color: black ; opacity: 0.9 ; width: 400px ; height: 300px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+    <form class="form-group" th:action="@{/question/addNewDetailedQuestion/__${examId}__}" method="post" th:object="${detailedQuestion}">
+                <span style="padding-left: 30px ; color: white ; text-align: center">
+                    create new detailed question
+                </span>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" th:field="*{text}" type="text" name="text" placeholder="text">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" th:field="*{title}" type="text" name="title" placeholder="title">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" th:field="*{createdDate}" type="date" name="createdDay" placeholder="createdDate">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input class="form-control" th:field="*{defaultScore}" type="text" name="defaultScore" placeholder="defaultScore">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <input type="submit" class="btn btn-primary" value="create the question">
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>
