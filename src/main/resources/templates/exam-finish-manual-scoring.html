@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>exam-finish-manual-scoring</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- model : "studentId" -->
+
+<body>
+
+<div class="alert alert-success" style="width: 1200px ; height: 300px ; margin-top: 200px ; margin-left: 50px ; justify-content: center">
+    <h4 class="alert-heading" role="heading">آزمون برای تصحیح در اختیار استاد قرار میگیرد شما میتوانید در قسمت نتایج آزمون ها از وضعیت آزمون خود مطلع شوید</h4>
+    <h3 class="alert-heading" role="heading" style="text-align: center">آیدی آزمون شما</h3>
+    <h2 class="alert-heading" role="heading" style="text-align: center" th:text="${examId}"></h2>
+
+    <a class="btn btn-primary" style="margin-top: 100px" th:href="@{/student/backToStudent/__${studentId}__}">برگشت به صفحه اصلی</a>
+
+</div>
+
+</body>
+</html>

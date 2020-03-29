@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list-exams-to-correction</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "exams" : is a map of exams of course and the number of their not corrected papers -->
+
+<body>
+
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>نام آزمون</th>
+        <th>تعداد کل شرکت کنندگان در آزمون</th>
+        <th>تعداد برگه های تصحیح نشده</th>
+        <th>نمایش برگه های آزمون</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${exams}">
+        <td th:text="${entry.key.name}"></td>
+        <td th:text="${entry.key.contributors.size()}"></td>
+        <td th:text="${entry.value}"></td>
+        <td>
+            <button type="submit" class="btn btn-primary" value="نمایش برگه های آزمون"
+                    th:href="@{/teacher/showExamPapers/__${entry.key.id}__}">نمایش برگه های آزمون</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

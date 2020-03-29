@@ -6,14 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import quiz.dto.EditExamDto;
-import quiz.model.Course;
-import quiz.model.Exam;
+import quiz.model.*;
+import quiz.model.enums.CorrectionStatus;
 import quiz.services.CourseService;
+import quiz.services.ExamPaperService;
 import quiz.services.ExamService;
 import quiz.services.UserService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/teacher")
@@ -27,6 +30,8 @@ public class TeacherController {
     private UserService userService;
     @Autowired
     private ExamService examService;
+    @Autowired
+    private ExamPaperService examPaperService;
 
     @RequestMapping(value = "/backToMainMenuOfTeacher")
     public String back(Model model , @RequestParam("teacherId") Long teacherId){
@@ -88,8 +93,18 @@ public class TeacherController {
 
         List<Exam> exams = examService.findExamsByCourseId(courseId);
 
-        model.addAttribute("exams" , exams);
+        Map<Exam , Float> examTotalScore = new HashMap<>();
+        for (Exam exam : exams){
+            float totalScore = 0;
+            for (Question question : exam.getQuestions()){
+                totalScore += question.getDefaultScore();
+            }
+            examTotalScore.put(exam , totalScore);
+        }
+
+        model.addAttribute("examTotalScoreMap" , examTotalScore);
         model.addAttribute("courseId" , courseId);
+        model.addAttribute("exams" , exams);
 
         return "list-exams-of-course";
     }
@@ -101,11 +116,15 @@ public class TeacherController {
 
         EditExamDto editExamDto = new EditExamDto();
 
+        Exam exam = examService.findExamById(examId);
+        float examTotalScore = 0;
+        for (Question question : exam.getQuestions()){
+            examTotalScore += question.getDefaultScore();
+        }
+
         model.addAttribute("editExamDto" , editExamDto);
-        model.addAttribute("examId" , examId);
-        model.addAttribute("examName" , examService.findExamById(examId).getName());
-        model.addAttribute("examDescription" , examService.findExamById(examId).getDescription());
-        model.addAttribute("examTime" , examService.findExamById(examId).getTime());
+        model.addAttribute("exam" , exam);
+        model.addAttribute("examTotalScore" , examTotalScore);
         model.addAttribute("exams" , exams);
 
         return "edit-exam";
@@ -118,9 +137,14 @@ public class TeacherController {
 
         Exam exam = examService.findExamById(examId);
 
-        exam.setName(editExamDto.getName());
-        exam.setDescription(editExamDto.getDescription());
-        exam.setTime(editExamDto.getTime());
+        if (2 <= editExamDto.getName().length() && editExamDto.getName().length() <= 15)
+            exam.setName(editExamDto.getName());
+        if (editExamDto.getDescription().length() != 0)
+            exam.setDescription(editExamDto.getDescription());
+        if (editExamDto.getTime() != null)
+            exam.setTime(editExamDto.getTime());
+        if (editExamDto.getPassingScore() != 0)
+            exam.setPassingScore(editExamDto.getPassingScore());
 
         examService.saveExam(exam);
 
@@ -168,6 +192,56 @@ public class TeacherController {
             model.addAttribute("courseId" , courseId);
             return "list-exams-of-course";
         }
+    }
+
+    @RequestMapping(value = "/correction/{teacherId}")
+    public String correction(Model model ,
+                             @PathVariable("teacherId") Long teacherId){
+
+        List<Course> teacherCourses = courseService.findAllCoursesByTeacherId(teacherId);
+
+        model.addAttribute("teacherCourses" , teacherCourses);
+
+        return "list-courses-to-exam-correction";
+    }
+
+    @RequestMapping("/listExamsToCorrection/{courseId}")
+    public String listExamsToCorrection(Model model ,
+                                        @PathVariable("courseId") Long courseId){
+
+        List<Exam> exams = examService.findExamsByCourseId(courseId);
+
+        Map<Exam , Integer> examNotCorrectedMap = new HashMap<>();
+
+        for (Exam exam : exams){
+            Integer numberOfNotCorrectedPapers = 0;
+            for (User student : exam.getContributors()){
+                ExamPaper examPaper = examPaperService.findExamPaperOfAnStudentInOneExam(exam.getId() , student.getId());
+                if (examPaper.getCorrection().equals(CorrectionStatus.NotCorrected))
+                    numberOfNotCorrectedPapers += 1;
+            }
+            examNotCorrectedMap.put(exam , numberOfNotCorrectedPapers);
+        }
+
+        model.addAttribute("exams" , examNotCorrectedMap);
+
+        return "list-exams-to-correction";
+    }
+
+    @RequestMapping(value = "/showExamPapers/{examId}")
+    public String showExamPapers(Model model ,
+                                 @PathVariable("examId") Long examId){
+
+        List<ExamPaper> examPaperList = new ArrayList<>();
+
+        for (User student : examService.findExamById(examId).getContributors()){
+            ExamPaper examPaper = examPaperService.findExamPaperOfAnStudentInOneExam(examId , student.getId());
+            examPaperList.add(examPaper);
+        }
+
+        model.addAttribute("examPaperList" , examPaperList);
+
+        return "list-examPapers-to-correction";
     }
 
 }

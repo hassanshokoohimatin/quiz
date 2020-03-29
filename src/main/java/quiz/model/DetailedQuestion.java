@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 //@NoArgsConstructor
-@Table
 @Entity
 @DiscriminatorValue("DetailedQuestion")
 public class DetailedQuestion extends Question {

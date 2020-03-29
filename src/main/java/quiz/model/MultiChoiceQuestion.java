@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 //@NoArgsConstructor
-@Table
 @Entity
 @DiscriminatorValue("MultiChoiceQuestion")
 public class MultiChoiceQuestion extends Question {

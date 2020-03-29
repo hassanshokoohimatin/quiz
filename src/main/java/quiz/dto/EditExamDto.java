@@ -10,5 +10,6 @@ public class EditExamDto {
     private String name;
     private String description;
     private Integer time;
+    private float passingScore;
 
 }

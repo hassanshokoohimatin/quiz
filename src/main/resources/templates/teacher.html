@@ -16,7 +16,7 @@
 
     <div class="btn-group-vertical">
         <a th:href="@{/teacher/listTeacherCourses/(teacherId = ${teacherId})}" class="btn btn-warning">list of all your courses</a>
-        <form><button class="btn btn-primary" type="submit">1</button></form>
+        <form><button class="btn btn-primary" type="submit" th:href="@{/teacher/correction/__${teacherId}__}">تصحیح آزمون ها</button></form>
         <form><button class="btn btn-primary" type="submit">1</button></form>
     </div>
 

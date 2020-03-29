@@ -6,47 +6,50 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
-<!-- model : "exams" *** model : "courseId" -->
+<!-- model : "examTotalScoreMap" *** model : "courseId" -->
 
 <body>
 
 <table class="table table-striped table-dark">
-    <caption></caption>
     <thead>
     <tr>
         <td>name</td>
         <td>create date</td>
         <td>number of questions</td>
         <td>time</td>
+        <td>total score</td>
+        <td>passing score</td>
         <td colspan="8">action</td>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="exam : ${exams}">
-        <td th:text="${exam.name}"></td>
-        <td th:text="${exam.createdDate}"></td>
-        <td th:text="${exam.questions.size()}"></td>
-        <td th:text="${exam.time}"></td>
+    <tr th:each="entry : ${examTotalScoreMap}">
+        <td th:text="${entry.key.name}"></td>
+        <td th:text="${entry.key.createdDate}"></td>
+        <td th:text="${entry.key.questions.size()}"></td>
+        <td th:text="${entry.key.time}"></td>
+        <td th:text="${entry.value}"></td>
+        <td th:text="${entry.key.passingScore}"></td>
 
-        <td><form th:action="@{/teacher/editExam/__${exam.id}__}"><button type="submit" class="btn btn-warning"></button></form>edit</td>
+        <td><form th:action="@{/teacher/editExam/__${entry.key.id}__}"><button type="submit" class="btn btn-warning"></button></form>edit</td>
         <td>
-            <form th:action="@{/question/questions/__${exam.id}__}">
+            <form th:action="@{/question/questions/__${entry.key.id}__}">
                 <button type="submit" class="btn btn-primary" value="questions">questions</button>
             </form>
         </td>
         <td>
-            <button th:if="${exam.published == false}" class="btn btn-light" th:onclick="confirm(500)">publish exam</button>
+            <button th:if="${entry.key.published == false}" class="btn btn-light" th:onclick="confirm(500)">publish exam</button>
         </td>
         <td>
-            <form th:action="@{/teacher/submission/__${exam.id}__/__${courseId}__}">
+            <form th:action="@{/teacher/submission/__${entry.key.id}__/__${courseId}__}">
                 <input hidden class="btn btn-danger" th:id="500" type="submit" value="publish confirm">
             </form>
         </td>
         <td>
-            <button th:if="${exam.published == true}" class="btn btn-light" th:onclick="confirm(700)">unpublish exam</button>
+            <button th:if="${entry.key.published == true}" class="btn btn-light" th:onclick="confirm(700)">unpublish exam</button>
         </td>
         <td>
-            <form th:action="@{/teacher/submission/__${exam.id}__/__${courseId}__}">
+            <form th:action="@{/teacher/submission/__${entry.key.id}__/__${courseId}__}">
                 <input hidden class="btn btn-danger" th:id="700" type="submit" value="unpublish confirm">
             </form>
         </td>
@@ -54,7 +57,7 @@
             <button class="btn btn-light" th:onclick="confirm(1000)">delete</button>
         </td>
         <td>
-            <form th:action="@{/teacher/delete/__${exam.id}__/__${courseId}__}">
+            <form th:action="@{/teacher/delete/__${entry.key.id}__/__${courseId}__}">
                 <input hidden class="btn btn-danger" th:id="1000" type="submit" value="delete confirm">
             </form>
         </td>

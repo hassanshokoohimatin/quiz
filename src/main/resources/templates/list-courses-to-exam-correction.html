@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list-courses-to-exam-correction</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "teacherCourses" -->
+
+<body>
+
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>عنوان دوره</th>
+        <th>ورود</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="course : ${teacherCourses}">
+        <td th:text="${course.title}"></td>
+        <td>
+            <button type="submit" class="btn btn-primary" th:href="@{/teacher/listExamsToCorrection/__${course.id}__}">نمایش آزمون های دوره</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

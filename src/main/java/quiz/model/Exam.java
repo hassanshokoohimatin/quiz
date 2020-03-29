@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import quiz.model.enums.ExamScoringType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -36,7 +37,12 @@ public class Exam {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdDate;
 
+    @Enumerated(EnumType.STRING)
+    private ExamScoringType scoringType;
+
     private boolean isPublished;
+
+    private float passingScore;
 
     @OneToOne
     private User createdBy;
@@ -46,5 +52,8 @@ public class Exam {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Question> questions;
+
+    @ManyToMany
+    private List<User> contributors;//students that contribute in an exam
 
 }

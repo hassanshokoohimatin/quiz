@@ -6,8 +6,10 @@
     <link th:href="@{/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
 </head>
 
-<!-- model : "editExamDto" includes name and description and time *** model : "examId" the id of exam to be edited -->
-<!-- model : "examName" *** model : "examDescription" *** model : "examTime: *** model : "exams"-->
+<!-- model : "editExamDto" -->
+<!-- model : "exam"
+     model : "exams"
+     model : "examTotalScore" -->
 
 <body>
 
@@ -17,19 +19,25 @@
         <td>name</td>
         <td>description</td>
         <td>time</td>
+        <td>number of questions</td>
+        <td>exam total score</td>
+        <td>passing score</td>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td th:text="${examName}"></td>
-        <td th:text="${examDescription}"></td>
-        <td th:text="${examTime}"></td>
+        <td th:text="${exam.name}"></td>
+        <td th:text="${exam.description}"></td>
+        <td th:text="${exam.time}"></td>
+        <td th:text="${exam.questions.size()}"></td>
+        <td th:text="${examTotalScore}"></td>
+        <td th:text="${exam.passingScore}"></td>
     </tr>
     </tbody>
 </table>
 
-<div style="background-color: black ; opacity: 0.9 ; width: 400px ; height: 300px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
-    <form class="form-group" th:action="@{/teacher/submitEditExam/__${examId}__}">
+<div style="background-color: black ; opacity: 0.9 ; width: 400px ; height: 500px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+    <form class="form-group" th:action="@{/teacher/submitEditExam/__${exam.id}__}">
         <span style="padding-left: 30px ; color: white">
                     edit name
         </span>
@@ -47,6 +55,12 @@
         </span>
         <div style="padding: 5px 30px 30px">
             <input class="form-control" type="text" th:field="*{editExamDto.time}">
+        </div>
+        <span style="padding-left: 30px ; color: white" th:hidden="${exam.questions.size() == 0}">
+                    edit passing Score
+        </span>
+        <div style="padding: 5px 30px 30px" th:hidden="${exam.questions.size() == 0}">
+            <input class="form-control" type="text" th:field="*{editExamDto.passingScore}" th:hidden="${exam.questions.size() == 0}">
         </div>
 
         <div style="padding: 1px 30px 30px">
