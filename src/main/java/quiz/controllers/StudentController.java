@@ -75,8 +75,8 @@ public class StudentController {
             return "no-permitted-exam";//TODO: the student could not contribute in the exam...already contributed...add template
         }else {
 
-//            examService.findExamById(examId).getContributors().add(userService.findById(studentId));
-//            examService.saveExam(examService.findExamById(examId));//TODO: uncomment later
+            examService.findExamById(examId).getContributors().add(userService.findById(studentId));
+            examService.saveExam(examService.findExamById(examId));
 
             ExamPaper studentExamPaper = new ExamPaper();
             studentExamPaper.setExamId(examId);

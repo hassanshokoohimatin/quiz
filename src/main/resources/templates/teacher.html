@@ -6,7 +6,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<!-- model : "teacherId" Long id -->
+<!-- model : "teacherId" -->
 
 <body style="background-color: #0b2e13">
 
@@ -16,8 +16,9 @@
 
     <div class="btn-group-vertical">
         <a th:href="@{/teacher/listTeacherCourses/(teacherId = ${teacherId})}" class="btn btn-warning">list of all your courses</a>
-        <form><button class="btn btn-primary" type="submit" th:href="@{/teacher/correction/__${teacherId}__}">تصحیح آزمون ها</button></form>
-        <form><button class="btn btn-primary" type="submit">1</button></form>
+        <form th:action="@{/teacher/correction/__${teacherId}__}">
+            <button type="submit" class="btn btn-primary">تصحیح آزمون ها</button>
+        </form>
     </div>
 
 </div>

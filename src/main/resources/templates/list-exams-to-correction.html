@@ -25,8 +25,9 @@
         <td th:text="${entry.key.contributors.size()}"></td>
         <td th:text="${entry.value}"></td>
         <td>
-            <button type="submit" class="btn btn-primary" value="نمایش برگه های آزمون"
-                    th:href="@{/teacher/showExamPapers/__${entry.key.id}__}">نمایش برگه های آزمون</button>
+            <form th:action="@{/teacher/showExamPapers/__${entry.key.id}__}">
+            <button type="submit" class="btn btn-primary" value="نمایش برگه های آزمون">نمایش برگه های آزمون</button>
+            </form>
         </td>
     </tr>
     </tbody>

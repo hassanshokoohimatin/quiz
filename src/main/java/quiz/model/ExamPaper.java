@@ -42,4 +42,7 @@ public class ExamPaper {
     @ElementCollection
     private Map<Long , String> detailedQuestionsAnswers = new HashMap<>();
 
+    @ElementCollection
+    private Map<Long , Float> detailedQuestionsScoresByTeacher = new HashMap<>();
+
 }

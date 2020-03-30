@@ -6,11 +6,35 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
-<!-- "examPaperList" -->
+<!-- "examPaperNameMap" -->
 
 <body>
 
-
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>نام دانش آموز</th>
+        <th>وضعیت نصحیح</th>
+        <th colspan="2">عملیات تصحیح</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${examPaperNameMap}">
+        <td th:text="${entry.value}"></td>
+        <td th:text="${entry.key.getCorrection().toString()}"></td>
+        <td>
+            <form th:action="@{/teacher/correctExamPaper/__${entry.key.id}__}" th:if="${entry.key.correction.toString() == 'NotCorrected'}">
+            <button id="correctedButton" type="submit" class="btn btn-primary" value="تصحیح">تصحیح</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/teacher/correctExamPaper/__${entry.key.id}__}" th:if="${entry.key.correction.toString() == 'Corrected'}">
+            <button id="notCorrectedButton" type="submit" class="btn btn-primary" value="تصحیح مجدد">تصحیح مجدد</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

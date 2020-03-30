@@ -71,7 +71,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.GET)//TODO:add different account situations to sign in
-    public String signIn(Model model, @RequestParam("username") String username,
+    public String signIn(Model model,
+                         @RequestParam("username") String username ,
                          @RequestParam("password") String password) {
 
         if (userService.isUsernameExist(username) && userService.findUserByUsername(username).getPassword().equals(password)){
@@ -93,7 +94,6 @@ public class HomeController {
                     return "teacher";
 
                 }
-
 
             }
             if (signedInUserStatus.equals(Status.Inactive)){

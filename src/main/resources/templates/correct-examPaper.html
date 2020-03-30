@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>correct-examPaper</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "question"
+     "questionCounter"
+     "scoreDto"
+     "examPaper" -->
+
+<body>
+
+<div class="alert alert-success" role="alert">
+    <h6 class="alert-heading" style="text-align: right">متن سوال</h6>
+    <p style="text-align: center" th:text="${question.text}"></p>
+</div>
+<div class="alert alert-success" role="alert">
+    <h6 class="alert-heading" style="text-align: right">پاسخ دانش آموز</h6>
+    <p style="text-align: center" th:text="${examPaper.detailedQuestionsAnswers.get(question.id)}"></p>
+</div>
+<div class="alert alert-success">
+    <h6 class="alert-heading" style="text-align: right">بارم سوال</h6>
+    <p style="text-align: center" th:text="${question.defaultScore}"></p>
+</div>
+<div class="alert alert-success" role="alert">
+    <h6 class="alert-heading" style="text-align: center">نمره در نظر گرفته شده برای این سوال</h6>
+    <form th:action="@{/teacher/submitScore/__${examPaperId}__/__${question.id}__/__${questionCounter + 1}__}" style="margin-left: 550px">
+        <input type="number" th:field="*{scoreDto.score}" th:placeholder="${examPaper.detailedQuestionsScoresByTeacher.get(question.id)}"><br>
+        <button class="btn btn-primary" type="submit" value="نمره دهی">نمره دهی</button>
+    </form>
+</div>
+
+</body>
+</html>

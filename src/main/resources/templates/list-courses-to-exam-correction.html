@@ -21,7 +21,9 @@
     <tr th:each="course : ${teacherCourses}">
         <td th:text="${course.title}"></td>
         <td>
-            <button type="submit" class="btn btn-primary" th:href="@{/teacher/listExamsToCorrection/__${course.id}__}">نمایش آزمون های دوره</button>
+            <form th:action="@{/teacher/listExamsToCorrection/__${course.id}__}">
+            <button type="submit" class="btn btn-primary">نمایش آزمون های دوره</button>
+            </form>
         </td>
     </tr>
     </tbody>

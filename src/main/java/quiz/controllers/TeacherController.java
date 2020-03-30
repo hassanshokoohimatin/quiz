@@ -6,17 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import quiz.dto.EditExamDto;
+import quiz.dto.ScoreDto;
 import quiz.model.*;
 import quiz.model.enums.CorrectionStatus;
-import quiz.services.CourseService;
-import quiz.services.ExamPaperService;
-import quiz.services.ExamService;
-import quiz.services.UserService;
+import quiz.services.*;
 
+import javax.sound.midi.SoundbankResource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/teacher")
@@ -32,6 +32,8 @@ public class TeacherController {
     private ExamService examService;
     @Autowired
     private ExamPaperService examPaperService;
+    @Autowired
+    private QuestionService questionService;
 
     @RequestMapping(value = "/backToMainMenuOfTeacher")
     public String back(Model model , @RequestParam("teacherId") Long teacherId){
@@ -40,8 +42,8 @@ public class TeacherController {
         return "teacher";
     }
 
-    @RequestMapping(value = "/listTeacherCourses")
-    public String listTeacherCourses(Model model , @RequestParam("teacherId") Long teacherId){
+    @RequestMapping(value = "/listTeacherCourses/{teacherId}")
+    public String listTeacherCourses(Model model , @PathVariable("teacherId") Long teacherId){
 
         List<Course> courses = courseService.findAllCoursesByTeacherId(teacherId);
 
@@ -232,16 +234,95 @@ public class TeacherController {
     public String showExamPapers(Model model ,
                                  @PathVariable("examId") Long examId){
 
-        List<ExamPaper> examPaperList = new ArrayList<>();
+        Map<ExamPaper , String> examPaperNameMap = new HashMap<>();
+        List<User> students = examService.findExamById(examId).getContributors();
 
-        for (User student : examService.findExamById(examId).getContributors()){
+        for (User student : students){
             ExamPaper examPaper = examPaperService.findExamPaperOfAnStudentInOneExam(examId , student.getId());
-            examPaperList.add(examPaper);
+            String name = student.getFirstName() + "  " + student.getLastName();
+            examPaperNameMap.put(examPaper , name);
         }
 
-        model.addAttribute("examPaperList" , examPaperList);
+        model.addAttribute("examPaperNameMap" , examPaperNameMap);
 
         return "list-examPapers-to-correction";
+    }
+
+    @RequestMapping(value = "/correctExamPaper/{examPaperId}")
+    public String correctExamPaper(Model model ,
+                                   @PathVariable(value = "examPaperId") Long examPaperId){
+
+        ExamPaper examPaper = examPaperService.findById(examPaperId);
+
+        //==============================================================================================================
+        //this is for reCorrection
+        if (examPaper.getCorrection().equals(CorrectionStatus.Corrected)){
+            float detailedQuestionsScoresByTeacher = 0;
+            for (float score : examPaper.getDetailedQuestionsScoresByTeacher().values()){
+                detailedQuestionsScoresByTeacher += score;
+            }
+            examPaper.setStudentScore(examPaper.getStudentScore() - detailedQuestionsScoresByTeacher);
+            examPaperService.save(examPaper);
+        }
+        //==============================================================================================================
+
+        Exam exam = examService.findExamById(examPaper.getExamId());
+        List<Question> examQuestions = exam.getQuestions();
+        List<DetailedQuestion> examDetailedQuestions = examQuestions.stream().filter(question -> question instanceof DetailedQuestion).
+                map(question -> (DetailedQuestion) question).collect(Collectors.toList());
+
+        DetailedQuestion question = examDetailedQuestions.get(0);
+
+        ScoreDto scoreDto = new ScoreDto();
+
+        model.addAttribute("question" , question);
+        model.addAttribute("questionCounter" , 0);
+        model.addAttribute("scoreDto" , scoreDto);
+        model.addAttribute("examPaper" , examPaper);
+
+        return "correct-examPaper";
+
+    }
+
+    @RequestMapping("/submitScore/{examPaperId}/{questionId}/{questionCounter}")
+    public String submitScore(Model model , @ModelAttribute("scoreDto") ScoreDto scoreDto ,
+                              @PathVariable("examPaperId") Long examPaperId ,
+                              @PathVariable("questionId") Long questionId ,
+                              @PathVariable("questionCounter") int questionCounter){
+
+        ExamPaper examPaper = examPaperService.findById(examPaperId);
+        DetailedQuestion detailedQuestion = (DetailedQuestion) questionService.findQuestionById(questionId);
+        examPaper.getDetailedQuestionsScoresByTeacher().put(questionId , scoreDto.getScore());
+
+        examPaper.setStudentScore(examPaper.getStudentScore() +
+                examPaper.getDetailedQuestionsScoresByTeacher().get(questionId));
+
+        examPaperService.save(examPaper);
+
+
+
+        Exam exam = examService.findExamById(examPaper.getExamId());
+        List<Question> examQuestions = exam.getQuestions();
+        List<DetailedQuestion> examDetailedQuestions = examQuestions.stream().filter(question -> question instanceof DetailedQuestion).
+                map(question -> (DetailedQuestion) question).collect(Collectors.toList());
+
+        if (questionCounter == examDetailedQuestions.size()){
+
+            examPaper.setCorrection(CorrectionStatus.Corrected);
+            examPaperService.save(examPaper);
+            return "finish-correction";
+        }
+        else {
+
+            DetailedQuestion question = examDetailedQuestions.get(questionCounter);
+
+            model.addAttribute("question" , question);
+            model.addAttribute("examPaper" , examPaper);
+            model.addAttribute("questionCounter" , questionCounter);
+            model.addAttribute("scoreDto" , scoreDto);
+
+            return "correct-examPaper";
+        }
     }
 
 }
