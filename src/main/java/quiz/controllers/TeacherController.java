@@ -9,6 +9,7 @@ import quiz.dto.EditExamDto;
 import quiz.dto.ScoreDto;
 import quiz.model.*;
 import quiz.model.enums.CorrectionStatus;
+import quiz.model.enums.QuestionType;
 import quiz.services.*;
 
 import javax.sound.midi.SoundbankResource;
@@ -34,6 +35,8 @@ public class TeacherController {
     private ExamPaperService examPaperService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private AnswerService answerService;
 
     @RequestMapping(value = "/backToMainMenuOfTeacher")
     public String back(Model model , @RequestParam("teacherId") Long teacherId){
@@ -310,6 +313,7 @@ public class TeacherController {
 
             examPaper.setCorrection(CorrectionStatus.Corrected);
             examPaperService.save(examPaper);
+            model.addAttribute("examId" , examPaper.getExamId());
             return "finish-correction";
         }
         else {
@@ -324,6 +328,98 @@ public class TeacherController {
             return "correct-examPaper";
         }
     }
+
+    @RequestMapping("/addNewMultiChoiceQuestion/{teacherId}")
+    public String addNewMultiChoiceQuestion(Model model ,
+                                 @PathVariable("teacherId") Long teacherId){
+        MultiChoiceQuestion multiChoiceQuestion = new MultiChoiceQuestion();
+
+        model.addAttribute("multiChoiceQuestion" , multiChoiceQuestion);
+        model.addAttribute("teacherId" , teacherId);
+
+        return "addNewMultiChoiceQuestion";
+    }
+
+    @RequestMapping(value = "/addNewMultiChoiceQuestion/{teacherId}" , method = RequestMethod.POST)
+    public String addNewMultiChoiceQuestion(Model model ,
+                                            @PathVariable(value = "teacherId") Long teacherId ,
+                                            @ModelAttribute ("multiChoiceQuestion") MultiChoiceQuestion mlcQuestion){
+
+        MultiChoiceQuestion multiChoiceQuestion = new MultiChoiceQuestion();
+
+        multiChoiceQuestion.setText(mlcQuestion.getText());
+        multiChoiceQuestion.setTitle(mlcQuestion.getTitle());
+        multiChoiceQuestion.setCreatedDate(mlcQuestion.getCreatedDate());
+        multiChoiceQuestion.setDefaultScore(mlcQuestion.getDefaultScore());
+        multiChoiceQuestion.setCreatedBy(userService.findById(teacherId));
+        multiChoiceQuestion.setType(QuestionType.MultiChoice);
+        List<Answer> answers = new ArrayList<>();
+        for (Answer answer : mlcQuestion.getAnswers()){
+            if (answer.getText() != "")
+                answers.add(answer);
+        }
+        multiChoiceQuestion.setAnswers(answers);
+
+        questionService.save(multiChoiceQuestion);
+
+        model.addAttribute("choicesList" , multiChoiceQuestion.getAnswers());
+        model.addAttribute("multiChoiceQuestion" , multiChoiceQuestion);
+        model.addAttribute("teacherId" , teacherId);
+
+        return "selectCorrectAnswer";
+    }
+
+    @RequestMapping("/selectCorrectAnswer/{teacherId}/{multiChoiceQuestionId}")
+    public String selectCorrectAnswer(Model model ,
+                                      @PathVariable("teacherId") Long teacherId ,
+                                      @PathVariable("multiChoiceQuestionId") Long multiChoiceQuestionId ,
+                                      @RequestParam(value = "correctAnswerId") Long correctAnswerId){
+
+        MultiChoiceQuestion mlcQuestion = (MultiChoiceQuestion) questionService.findQuestionById(multiChoiceQuestionId);
+
+        mlcQuestion.setCorrectAnswer(answerService.findAnswerById(correctAnswerId));
+        questionService.save(mlcQuestion);
+
+        model.addAttribute("teacherId" , teacherId);
+
+        return "successful-adding-multiChoiceQuestion";
+
+    }
+
+    @RequestMapping("/addNewDetailedQuestion/{teacherId}")
+    public String addNewDetailed(Model model ,
+                                 @PathVariable("teacherId") Long teacherId){
+
+        DetailedQuestion detailedQuestion = new DetailedQuestion();
+
+        model.addAttribute("detailedQuestion" , detailedQuestion);
+        model.addAttribute("teacherId" , teacherId);
+
+        return "addNewDetailedQuestion";
+    }
+
+    @RequestMapping(value = "/addNewDetailedQuestion/{teacherId}" , method = RequestMethod.POST)
+    public String addNewDetQuestion(Model model ,
+                                    @ModelAttribute("detailedQuestion") DetailedQuestion detailedQuestion ,
+                                    @PathVariable(value = "teacherId") Long teacherId){
+
+        DetailedQuestion newDetailedQuestion = new DetailedQuestion();
+
+        newDetailedQuestion.setText(detailedQuestion.getText());
+        newDetailedQuestion.setTitle(detailedQuestion.getTitle());
+        newDetailedQuestion.setCreatedDate(detailedQuestion.getCreatedDate());
+        newDetailedQuestion.setDefaultScore(detailedQuestion.getDefaultScore());
+        newDetailedQuestion.setCreatedBy(userService.findById(teacherId));
+        newDetailedQuestion.setType(QuestionType.Detailed);
+
+        questionService.save(newDetailedQuestion);
+
+        model.addAttribute("teacherId" , teacherId);
+
+        return "successful-adding-detailedQuestion";
+
+    }
+
 
 }
 

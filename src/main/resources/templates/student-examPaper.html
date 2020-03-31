@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>student-examPaper</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "studentExamPaper"
+     "examService" -->
+
+<body>
+
+<div id="myDiv" style="width: 1200px ; height: 120px ; margin-left: 50px ; margin-top: 200px ; justify-content: center" onclick="cellColor()">
+    <h3 id="myHeader" style="text-align: center" onclick="cellColor()"></h3>
+    <table class="table table-striped" onclick="cellColor()" style="padding-top: 30px">
+        <thead>
+        <tr>
+            <td>تعداد سوالات</td>
+            <td>نمره کل آزمون</td>
+            <td>نمره قبولی آزمون</td>
+            <td>نمره دریافتی شما</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${examService.findExamById(studentExamPaper.examId).questions.size()}"></td>
+            <td th:text="${studentExamPaper.totalScore}"></td>
+            <td th:text="${studentExamPaper.passingScore}"></td>
+            <td th:text="${studentExamPaper.studentScore}" id="myCell"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+    <form th:action="@{/student/examsResults/__${studentExamPaper.studentId}__}">
+        <button type="submit" class="btn btn-primary">بازگشت به لیست برگه های امتحانی</button>
+    </form>
+    <form th:action="@{/student/backToStudent/__${studentExamPaper.studentId}__}">
+        <button type="submit" class="btn btn-primary">بازگشت به صفحه اصلی</button>
+    </form>
+<div>
+
+</div>
+
+<script th:inline="javaScript">
+
+    /*<![CDATA[*/
+
+    var passingScore = /*[[${studentExamPaper.passingScore}]]*/  0;
+    var studentScore = /*[[${studentExamPaper.studentScore}]]*/  0;
+
+    /*]]>*/
+
+    function cellColor() {
+
+        var myCell = document.getElementById("myCell");
+        var myDiv = document.getElementById("myDiv");
+        var myHeader = document.getElementById("myHeader");
+
+        if (studentScore>passingScore){
+
+            myCell.style.backgroundColor = "#adff2f"
+            myDiv.style.backgroundColor = "#ffc0cb"
+            myHeader.innerText = "شما آزمون را با موفقیت گذراندید";
+        }
+        else if (studentScore == passingScore){
+            myCell.style.backgroundColor = "#ffff00"
+            myDiv.style.backgroundColor = "#ffA500"
+            myHeader.innerText = "شما آزمون را با موفقیت گذراندید";
+        }
+        else {
+            myCell.style.backgroundColor = "#FF0000"
+            myDiv.style.backgroundColor = "#778899"
+            myHeader.innerText = "متاسفانه نمره کسب شده شما به حد نصاب نرسید";
+        }
+    }
+</script>
+
+</body>
+</html>

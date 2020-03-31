@@ -20,7 +20,7 @@
         <th>نام</th>
         <th>نام خانوادگی</th>
         <th>رل(نقش)</th>
-        <th colspan="3">حذف/ویرایش</th>
+        <th colspan="3">عملیات</th>
     </tr>
     </thead>
     <tbody>
@@ -33,10 +33,10 @@
             <a class="btn btn-warning" th:href="@{/admin/editUser/(id = ${user.id})}">ویرایش</a>
         </td>
         <td>
-            <a class="btn btn-danger" th:onclick="|delConfirm(${user.id})|">حذف</a>
+            <a class="btn btn-danger" th:onclick="|inActivate(${user.id})|">غیر فعال کردن این حساب کاربری</a>
         </td>
         <td>
-            <a hidden class="btn btn-danger" th:id="${user.id}" th:href="@{/admin/deleteUser/(id = ${user.id})}">تایید حذف</a>
+            <a hidden class="btn btn-danger" th:id="${user.id}" th:href="@{/admin/inActivateUser/(id = ${user.id})}">تایید غیر فعال کردن</a>
         </td>
     </tr>
     </tbody>
@@ -45,7 +45,7 @@
 <a class="btn btn-primary" href="/admin/backToAdmin">برگشت به داشبورد اختصاصی</a>
 
 <script>
-    function delConfirm(id) {
+    function inActivate(id) {
         if (document.getElementById(id).hidden == false)
             document.getElementById(id).hidden = true;
         else

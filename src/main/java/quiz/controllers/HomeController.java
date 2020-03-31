@@ -39,8 +39,13 @@ public class HomeController {
     @RequestMapping(value = "/submitSignUp", method = RequestMethod.POST)
     public String submitSignUp(@ModelAttribute UserDto userDto) {
 
-        if (userService.isUsernameExist(userDto.getUsername()) || userService.isEmailExist(userDto.getEmail()))
-            return "usernameOrEmail-already-exist";//TODO:add to templates
+        if (userService.isUsernameExist(userDto.getUsername())){
+            return "username-already-exist";
+        }
+        else if (userService.isEmailExist(userDto.getEmail())){
+            return "email-already-exist";
+        }
+
         else {
 
             User newUser = new User();
@@ -70,7 +75,7 @@ public class HomeController {
         }
     }
 
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)//TODO:add different account situations to sign in
+    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
     public String signIn(Model model,
                          @RequestParam("username") String username ,
                          @RequestParam("password") String password) {
@@ -98,15 +103,15 @@ public class HomeController {
             }
             if (signedInUserStatus.equals(Status.Inactive)){
 
-                return "inactive-account";//TODO:add to templates
+                return "inactive-account";
             }
             else {
 
-                return "waiting-account";//TODO : add template
+                return "waiting-account";
             }
 
         }else {
-            return "notExistedUsernameOrWrongPassword";//TODO:add template
+            return "notExistedUsernameOrWrongPassword";
         }
 
     }

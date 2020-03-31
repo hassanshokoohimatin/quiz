@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>successful-adding-multiChoiceQuestion</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "teacherId" -->
+
+<body>
+
+<div class="alert alert-success" role="alert" style="margin-top: 200px">
+    <h3 class="alert-heading" style="text-align: center">سوال چندگزینه ای شما با موفقیت اضافه شد</h3>
+    <a th:href="@{/teacher/backToMainMenuOfTeacher/(teacherId = ${teacherId})}" class="btn btn-primary" style="margin-left: 550px">برگشت به داشبورد اختصاصی</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>exams-results-to-student</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "studentExamPapers"
+     "examService" -->
+
+<body>
+
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th>نام دوره</th>
+        <th>نام آزمون</th>
+        <th>وضعیت</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="examPaper : ${studentExamPapers}">
+        <td th:text="${examService.findExamById(examPaper.examId).course.title}"></td>
+        <td th:text="${examService.findExamById(examPaper.examId).name}"></td>
+        <td>
+            <form th:action="@{/student/showExamPaperToStudent/__${examPaper.id}__}" >
+                <input type="submit" th:value="${examPaper.correction.toString()}" class="btn btn-primary"
+                       th:disabled="${examPaper.correction.toString() == 'NotCorrected'}">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

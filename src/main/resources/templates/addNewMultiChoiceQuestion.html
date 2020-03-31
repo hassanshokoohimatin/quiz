@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>create-new-multiChoice-question</title>
+    <title>addNewMultiChoiceQuestion</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
-<!-- model : "multiChoiceQuestion" *** model : "examId" -->
+<!-- "multiChoiceQuestion"
+     "teacherId" -->
 
 <body>
 
@@ -14,22 +15,22 @@
     create new multiChoice question
 </div>
 
-    <form id="myForm" th:action="@{/question/addNewMultiChoiceQuestion/__${examId}__}" class="form-group"
-                      th:object="${multiChoiceQuestion}" method="post">
-        <input class="btn btn-primary" type="submit" id="submitButton" th:value="create">
-        <div class="form-control">
-            <input type="text" th:field="*{text}">
-        </div>
-        <div class="form-control">
-            <input type="text" th:field="*{title}">
-        </div>
-        <div class="form-control">
-            <input type="text" th:field="*{defaultScore}">
-        </div>
-        <div class="form-control">
-            <input type="date" th:field="*{createdDate}">
-        </div>
-        <div class="form-control">
+<form id="myForm" th:action="@{/teacher/addNewMultiChoiceQuestion/__${teacherId}__}" class="form-group"
+      th:object="${multiChoiceQuestion}" method="post">
+    <input class="btn btn-primary" type="submit" id="submitButton" th:value="create">
+    <div class="form-control">
+        <textarea th:field="*{text}"></textarea>
+    </div>
+    <div class="form-control">
+        <input type="text" th:field="*{title}">
+    </div>
+    <div class="form-control">
+        <input type="text" th:field="*{defaultScore}">
+    </div>
+    <div class="form-control">
+        <input type="date" th:field="*{createdDate}">
+    </div>
+    <div class="form-control">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -59,7 +60,7 @@
             </tr>
             </tbody>
         </table>
-        </div>
+    </div>
 </form>
 
 </body>

@@ -52,7 +52,7 @@ public class StudentController {
         return "list-student-courses";
     }
 
-    @RequestMapping(value = "examsOfCourse/{courseId}/{studentId}")
+    @RequestMapping(value = "/examsOfCourse/{courseId}/{studentId}")
     public String examsOfCourse(Model model ,
                                 @PathVariable(value = "courseId") Long courseId ,
                                 @PathVariable(value = "studentId") Long studentId){
@@ -72,7 +72,11 @@ public class StudentController {
                               @PathVariable(value = "studentId") Long studentId){
 
         if (examService.findExamById(examId).getContributors().contains(userService.findById(studentId))){
-            return "no-permitted-exam";//TODO: the student could not contribute in the exam...already contributed...add template
+
+            model.addAttribute("courseId" , examService.findExamById(examId).getCourse().getId());
+            model.addAttribute("studentId" , studentId);
+
+            return "no-permitted-exam";
         }else {
 
             examService.findExamById(examId).getContributors().add(userService.findById(studentId));
@@ -227,6 +231,28 @@ public class StudentController {
 
             return "exam-start";
         }
+    }
+
+    @RequestMapping("/examsResults/{studentId}")
+    public String results(Model model , @PathVariable("studentId") Long studentId){
+
+        List<ExamPaper> studentExamPapers = examPaperService.findExamPapersOfAnStudent(studentId);
+
+        model.addAttribute("studentExamPapers" , studentExamPapers);
+        model.addAttribute("examService" , examService);
+
+        return "exams-results-to-student";
+    }
+
+    @RequestMapping("/showExamPaperToStudent/{examPaperId}")
+    public String showExamPaper(Model model , @PathVariable("examPaperId") Long examPaperId){
+
+        ExamPaper studentExamPaper = examPaperService.findById(examPaperId);
+
+        model.addAttribute("studentExamPaper" , studentExamPaper);
+        model.addAttribute("examService" , examService);
+
+        return "student-examPaper";
     }
 
 }

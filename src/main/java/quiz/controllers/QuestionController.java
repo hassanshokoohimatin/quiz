@@ -163,7 +163,12 @@ public class QuestionController {
         multiChoiceQuestion.setDefaultScore(mlcQuestion.getDefaultScore());
         multiChoiceQuestion.setCreatedBy(examService.findExamById(examId).getCourse().getTeacher());
         multiChoiceQuestion.setType(QuestionType.MultiChoice);
-        multiChoiceQuestion.setAnswers(mlcQuestion.getAnswers());
+        List<Answer> answers = new ArrayList<>();
+        for (Answer answer : mlcQuestion.getAnswers()){
+            if (answer.getText() != "")
+                answers.add(answer);
+        }
+        multiChoiceQuestion.setAnswers(answers);
 
         qService.save(multiChoiceQuestion);
 
@@ -183,8 +188,6 @@ public class QuestionController {
 
         mlcQuestion.setCorrectAnswer(answerService.findAnswerById(correctAnswerId));
         qService.save(mlcQuestion);
-
-        System.out.println(((MultiChoiceQuestion) qService.findQuestionById(mlcQuestionId)).getCorrectAnswer().getText());
 
         return "redirect:/question/addQuestion/{examId}";
     }

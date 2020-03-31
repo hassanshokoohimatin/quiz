@@ -2,16 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>create-new-detailed-question</title>
+    <title>addNewDetailedQuestion</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
-<!-- model : "detailedQuestion" *** model:"examId" -->
+<!-- "detailedQuestion"
+     "teacherId" -->
 
-<body style="background: navy ; background-size: cover">
+<body>
 
 <div style="background-color: black ; opacity: 0.9 ; width: 400px ; height: 300px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
-    <form class="form-group" th:action="@{/question/addNewDetailedQuestion/__${examId}__}" method="post" th:object="${detailedQuestion}">
+    <form class="form-group" th:action="@{/teacher/addNewDetailedQuestion/__${teacherId}__}" method="post" th:object="${detailedQuestion}">
                 <span style="padding-left: 30px ; color: white ; text-align: center">
                     create new detailed question
                 </span>
@@ -34,5 +35,4 @@
 </div>
 
 </body>
-
 </html>

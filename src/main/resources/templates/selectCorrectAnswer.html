@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>selectCorrectAnswer</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "choicesList"
+     "multiChoiceQuestion"
+     "teacherId" -->
+
+<body>
+
+<form th:action="@{/teacher/selectCorrectAnswer/__${teacherId}__/__${multiChoiceQuestion.id}__}">
+    <select name="correctAnswerId">
+        <option th:each="choice : ${choicesList}" th:text="${choice.text}" th:value="${choice.id}">
+
+        </option>
+    </select>
+    <input type="submit" value="choose">
+</form>
+
+</body>
+</html>

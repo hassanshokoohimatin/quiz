@@ -15,9 +15,17 @@
 <div style="background-color: #7abaff ; height: 500px ; width: 300px">
 
     <div class="btn-group-vertical">
-        <a th:href="@{/teacher/listTeacherCourses/(teacherId = ${teacherId})}" class="btn btn-warning">list of all your courses</a>
+        <form th:action="@{/teacher/listTeacherCourses/__${teacherId}__}">
+            <button type="submit" class="btn btn-primary">لیست دوره های شما</button>
+        </form>
         <form th:action="@{/teacher/correction/__${teacherId}__}">
             <button type="submit" class="btn btn-primary">تصحیح آزمون ها</button>
+        </form>
+        <form th:action="@{/teacher/addNewMultiChoiceQuestion/__${teacherId}__}">
+            <button type="submit" class="btn btn-primary">افزودن سوال چند گزینه ای جدبد</button>
+        </form>
+        <form th:action="@{/teacher/addNewDetailedQuestion/__${teacherId}__}">
+            <button type="submit" class="btn btn-primary">افزودن سوال تشریحی جدبد</button>
         </form>
     </div>
 

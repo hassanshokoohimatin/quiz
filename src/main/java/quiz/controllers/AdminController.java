@@ -247,10 +247,19 @@ public class AdminController {
         return "";
     }
 
-    @RequestMapping(value = "/deleteUser")
-    public String deleteUser(@RequestParam("id") Long id){
+    @RequestMapping(value = "/inActivateUser")
+    public String inActivateUser(Model model ,
+                                 @RequestParam("id") Long id){
 
-        userService.removeUserById(id);//TODO : can not delete user because user is child of course...??
+        User user = userService.findById(id);
+        user.setStatus(Status.Inactive);
+        userService.saveUser(user);
+
+        SearchDto searchDto = new SearchDto();
+
+        model.addAttribute("searchDto" , searchDto);
+        model.addAttribute("allRoles" , roleService.allRoles());
+
         return "search-users";
     }
 

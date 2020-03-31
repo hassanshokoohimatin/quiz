@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>finish-correction</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
+
+<!-- "examId" -->
+
 <body>
-correction finished
+
+<div class="alert alert-success" role="alert" style="margin-top: 250px">
+    <h3 class="alert-heading" style="text-align: center;">عملیات تصحیح پایان یاقت</h3>
+    <form th:action="@{/teacher/showExamPapers/__${examId}__}">
+        <button type="submit" class="btn btn-primary" style="margin-left: 550px">برگشت به لیست برگه های امتحانی</button>
+    </form>
+</div>
+
 </body>
 </html>

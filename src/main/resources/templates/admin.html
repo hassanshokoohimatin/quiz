@@ -5,16 +5,17 @@
     <title>admin</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-image: url('images/exam04.jpg') ; background-size: cover">
 
-<div style="background-color: #8fd19e ; width: 100% ; height: 100px ;" class="p-l-0 p-r-0 p-t-0">
-    <h1 style="text-align: center">داشبورد اختصاصی مدیر</h1>
+<div style="background-color: #721c24; opacity: 0.5 ; width: 100% ; height: 100px ;" class="p-l-0 p-r-0 p-t-0">
+    <h1 style="text-align: center ; color: #bee5eb">داشبورد اختصاصی مدیر</h1>
 </div>
-<div style="background-color: #ced4da ; width: 10cm ; height: 10cm ; ">
-    <a class="page-link" href="/admin/listWaitingUsers">لیست کاربران در حال انتظار</a>
-    <a class="page-link" href="/admin/courses">لیست دوره ها</a>
-    <a class="page-link" href="/admin/searchUsers">جستجوی کاربران</a>
-    <a class="page-link" href="/admin/backToSignIn">خروج از حساب کاربری</a>
+
+<div class="btn-group-vertical">
+    <a class="btn btn-primary" href="/admin/listWaitingUsers">لیست کاربران در حال انتظار</a><br>
+    <a class="btn btn-primary" href="/admin/courses">لیست دوره ها</a><br>
+    <a class="btn btn-primary" href="/admin/searchUsers">جستجوی کاربران</a><br>
+    <a class="btn btn-primary" href="/admin/backToSignIn">خروج از حساب کاربری</a><br>
 </div>
 
 </body>

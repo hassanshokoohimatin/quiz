@@ -8,17 +8,19 @@
 
 <!-- model : "studentId" -->
 
-<body>
+<body style="background-image: url('images/exam02.jpg') ; background-size: cover">
 
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success" role="alert" style="opacity: 0.5">
     <h2 class="alert-heading" style="text-align: center">
         students page
     </h2>
 </div>
 
-<div style="width: 400px ; height: 600px ; background-color: #7abaff">
+<div class="btn-group-vertical">
 
-    <a class="btn btn-primary" th:href="@{/student/listStudentCourses/__${studentId}__}">list of your courses</a>
+    <a class="btn btn-primary" th:href="@{/student/listStudentCourses/__${studentId}__}">لیست دوره های شما</a>
+
+    <a class="btn btn-primary" th:href="@{/student/examsResults/__${studentId}__}">نتایح آزمون</a>
 
 </div>
 

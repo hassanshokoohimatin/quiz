@@ -12,7 +12,6 @@
 
 <body>
 
-<div style="width: 100% ; height: 300px ; justify-content: center ; background-color: #34ce57">
 <form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}" method="post" th:if="${question.type.toString() == 'MultiChoice'}">
     <label style="text-align: center" th:text="${question.text}" ></label><br>
     <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
@@ -20,9 +19,8 @@
     <input type="radio" th:field="*{questionAnswerDto.answerId}"
            th:each="choice : ${question.answers}" th:text="${choice.text}" th:value="${choice.id}"><br>
 
-    <input type="submit" class=" btn btn-primary" value="next question">
+    <input type="submit" class=" btn btn-primary" value="سوال بعدی">
 </form>
-</div>
 
 <form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}" method="post" th:if="${question.type.toString() == 'Detailed' }">
     <label th:text="${question.text}" ></label><br>
@@ -30,11 +28,11 @@
 
     <textarea th:field="*{questionAnswerDto.detailedAnswer}"></textarea>
 
-    <input type="submit" class=" btn btn-primary" value="next question">
+    <input type="submit" class=" btn btn-primary" value="سوال بعدی">
 </form>
 
 <form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter - 1}__}" method="post">
-    <input type="submit" class="btn-primary" value="previous question" th:disabled="${questionCounter == 0}">
+    <input type="submit" class="btn-primary" value="سوال قبلی" th:disabled="${questionCounter == 0}">
     <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
 </form>
 
