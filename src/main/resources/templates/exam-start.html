@@ -4,35 +4,48 @@
     <meta charset="UTF-8">
     <title>exam-start</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link href="/css/myCss.css" rel="stylesheet" type="text/css">
 </head>
 
 <!-- model : "question"
      model : "questionAnswerDto"
-     model : "questionCounter" -->
+     model : "questionCounter"
+     model : "size" -->
 
-<body>
+<body style="background-image: url('/images/exam01.jpg') ; background-size: cover">
 
-<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}" method="post" th:if="${question.type.toString() == 'MultiChoice'}">
-    <label style="text-align: center" th:text="${question.text}" ></label><br>
+<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}"
+      method="post" th:if="${question.type.toString() == 'MultiChoice'}">
+
+    <div class="divStyle">
+    <label style="padding: 20px 20px" th:text="${question.text}" ></label><br>
+
     <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
-
     <input type="radio" th:field="*{questionAnswerDto.answerId}"
-           th:each="choice : ${question.answers}" th:text="${choice.text}" th:value="${choice.id}"><br>
+           th:each="choice : ${question.answers}" th:text="${choice.text}" th:value="${choice.id}">
+    </div>
+    <input type="submit" class="btn btn-primary inputNextQ" value="سوال بعدی" th:disabled="${questionCounter == size - 1}">
+    <input type="submit" style="margin-left: 10px" class="btn btn-primary" value="پایان آزمون" th:if="${questionCounter == size - 1}">
 
-    <input type="submit" class=" btn btn-primary" value="سوال بعدی">
 </form>
 
-<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}" method="post" th:if="${question.type.toString() == 'Detailed' }">
-    <label th:text="${question.text}" ></label><br>
+<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}"
+      method="post" th:if="${question.type.toString() == 'Detailed' }">
+
+    <div class="divStyle">
+    <label style="padding: 20px 20px" th:text="${question.text}" ></label><br>
     <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
+    <textarea class="textArea" th:field="*{questionAnswerDto.detailedAnswer}" placeholder="جواب را اینجا وارد کنید"></textarea>
+    </div>
+    <input type="submit" class="btn btn-primary inputNextQ" value="سوال بعدی" th:disabled="${questionCounter == size - 1}">
+    <input type="submit" style="margin-left: 10px" class="btn btn-primary" value="پایان آزمون" th:if="${questionCounter == size - 1}">
 
-    <textarea th:field="*{questionAnswerDto.detailedAnswer}"></textarea>
-
-    <input type="submit" class=" btn btn-primary" value="سوال بعدی">
 </form>
 
 <form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter - 1}__}" method="post">
-    <input type="submit" class="btn-primary" value="سوال قبلی" th:disabled="${questionCounter == 0}">
+    <div style="margin-left: 280px ; margin-top: -38px">
+    <input type="submit" class="btn btn-primary" value="سوال قبلی" th:disabled="${questionCounter == 0}">
+    </div>
     <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
 </form>
 

@@ -3,29 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>teacher</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
 <!-- model : "teacherId" -->
 
-<body style="background-color: #0b2e13">
+<body style="background-image: url('/images/chalk2.jpg') ; background-size: cover">
 
-<div class="alert alert-success" style="margin-bottom: 0 ; text-align: center" role="alert">داشبورد اختصاصی اساتید</div>
+<div class="alert" style="background-color: #ffc107 ;font-size: xx-large ;margin-bottom: 0 ; text-align: center" role="alert">داشبورد اختصاصی اساتید</div>
 
-<div style="background-color: #7abaff ; height: 500px ; width: 300px">
+<div style="height: 500px ; width: 300px">
 
-    <div class="btn-group-vertical">
+    <div class="btn-group-vertical" style="margin-top: 50px">
         <form th:action="@{/teacher/listTeacherCourses/__${teacherId}__}">
-            <button type="submit" class="btn btn-primary">لیست دوره های شما</button>
+            <button type="submit" class="btn btn-dark" style="font-size: large;margin-top: 10px;border-radius: 10px;width: 400px">لیست دوره های شما</button>
         </form>
         <form th:action="@{/teacher/correction/__${teacherId}__}">
-            <button type="submit" class="btn btn-primary">تصحیح آزمون ها</button>
+            <button type="submit" class="btn btn-dark" style="font-size: large;margin-top: 10px;border-radius: 10px;width: 400px">تصحیح آزمون ها</button>
         </form>
         <form th:action="@{/teacher/addNewMultiChoiceQuestion/__${teacherId}__}">
-            <button type="submit" class="btn btn-primary">افزودن سوال چند گزینه ای جدبد</button>
+            <button type="submit" class="btn btn-dark" style="font-size: large;margin-top: 10px;border-radius: 10px;width: 400px">افزودن سوال چند گزینه ای جدید</button>
         </form>
         <form th:action="@{/teacher/addNewDetailedQuestion/__${teacherId}__}">
-            <button type="submit" class="btn btn-primary">افزودن سوال تشریحی جدبد</button>
+            <button type="submit" class="btn btn-dark" style="font-size: large;margin-top: 10px;border-radius: 10px;width: 400px">افزودن سوال تشریحی جدید</button>
+        </form>
+        <form th:action="@{/editAccount/__${teacherId}__}">
+            <button type="submit" class="btn btn-dark" style="font-size: large;margin-top: 10px;border-radius: 10px;width: 400px">ویرایش حساب کاربری</button>
+        </form>
+        <form th:action="@{/}">
+            <button type="submit" class="btn btn-dark" style="font-size: large;margin-top: 10px;border-radius: 10px;width: 400px">خروج از حساب کاربری</button>
         </form>
     </div>
 

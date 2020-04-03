@@ -9,20 +9,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class UserDto {
+public class EditAccountDto {
 
-    private Long id;
     private String username;
-    private String password;
-    private String passwordConfirm;
-    private String securityQuestion;
-    private String securityQuestionAnswer;
+    private String OldPassword;
+    private String newPassword;
+    private String newPasswordConfirm;
     private String firstName;
     private String lastName;
-    private String email;
     private String mobileNumber;
-    private String nationalCode;
-    private String role;
-    private String gender;
+    private String email;
 
 }

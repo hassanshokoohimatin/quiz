@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import quiz.dto.EditAccountDto;
 import quiz.dto.QuestionAnswerDto;
 import quiz.model.*;
 import quiz.model.enums.CorrectionStatus;
@@ -37,6 +38,11 @@ public class StudentController {
     @RequestMapping(value = "/backToStudent/{studentId}")
     public String back(@PathVariable("studentId") Long studentId){
         return "student";
+    }
+
+    @RequestMapping("/signOut")//TODO : the background image destroyed
+    public String signOut(){
+        return "index";
     }
 
     @RequestMapping(value = "/listStudentCourses/{studentId}")
@@ -78,9 +84,9 @@ public class StudentController {
 
             return "no-permitted-exam";
         }else {
-
-            examService.findExamById(examId).getContributors().add(userService.findById(studentId));
-            examService.saveExam(examService.findExamById(examId));
+//
+//            examService.findExamById(examId).getContributors().add(userService.findById(studentId));
+//            examService.saveExam(examService.findExamById(examId));
 
             ExamPaper studentExamPaper = new ExamPaper();
             studentExamPaper.setExamId(examId);
@@ -120,6 +126,7 @@ public class StudentController {
 
             model.addAttribute("questionAnswerDto" , questionAnswerDto);
             model.addAttribute("questionCounter" , 0);
+            model.addAttribute("size" , examQuestions.size());
 
             return "exam-start";
 
@@ -228,6 +235,7 @@ public class StudentController {
 
             model.addAttribute("questionAnswerDto", questionAnswerDto);
             model.addAttribute("questionCounter", questionCounter);
+            model.addAttribute("size" , examQuestions.size());
 
             return "exam-start";
         }

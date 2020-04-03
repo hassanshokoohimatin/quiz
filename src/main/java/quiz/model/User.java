@@ -51,4 +51,7 @@ public class User {
     @OneToOne
     private Role role;
 
+    private String securityQuestion;
+    private String securityAnswer;
+
 }

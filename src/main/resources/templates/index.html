@@ -6,12 +6,12 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
 
-<body style="background-image: url('images/dark-quiz.jpg') ; background-size: cover">
+<body style="background-image: url('images/pencil.jpg') ; background-size: cover">
 
-<div style="background-color: saddlebrown ; opacity: 0.8 ; width: 400px ; height: 300px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+<div style="background-color: orange ; opacity: 0.8 ; width: 400px ; height: 300px ; margin-left: 500px ;margin-top: 150px">
     <form class="form-group" action="/signIn" method="get">
                 <span style="padding-left: 30px ; color: white">
-                    Account Login
+                    ورود به حساب کاربری
                 </span>
         <div style="padding: 5px 30px 30px">
             <input class="form-control" type="text" name="username" placeholder="username">
@@ -21,15 +21,16 @@
         </div>
         <div style="padding: 1px 30px 30px">
             <button type="submit" class="btn btn-primary">
-                sign in
+                ورود
             </button>
+            <a class="btn btn-primary" href="/forgot">رمز عبور خود را فراموش کزده اید</a>
         </div>
         <div style="padding: 1px 30px 30px">
                     <span style="color: white">
-                        create an account?
+                        ایجاد حساب کاربری
                     </span>
             <a class="btn btn-primary" href="/signUp">
-                sign up
+                ثبت نام
             </a>
         </div>
     </form>

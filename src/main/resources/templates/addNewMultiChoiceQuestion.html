@@ -9,59 +9,40 @@
 <!-- "multiChoiceQuestion"
      "teacherId" -->
 
-<body>
+<body style="background-color: lightcyan">
 
-<div class="alert alert-success" role="alert">
-    create new multiChoice question
+<div class="alert alert-success" role="alert" style="text-align: center">
+    افزودن سوال چندگزینه ای
 </div>
-
+<div style="width: 500px;background-color: #adb5bd;border-radius: 15px;margin-left: 400px;justify-content: center;display: flex">
 <form id="myForm" th:action="@{/teacher/addNewMultiChoiceQuestion/__${teacherId}__}" class="form-group"
       th:object="${multiChoiceQuestion}" method="post">
-    <input class="btn btn-primary" type="submit" id="submitButton" th:value="create">
-    <div class="form-control">
-        <textarea th:field="*{text}"></textarea>
-    </div>
-    <div class="form-control">
-        <input type="text" th:field="*{title}">
-    </div>
-    <div class="form-control">
-        <input type="text" th:field="*{defaultScore}">
-    </div>
-    <div class="form-control">
-        <input type="date" th:field="*{createdDate}">
-    </div>
-    <div class="form-control">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th colspan="2">
-                    text of answer
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><input type="text" th:field="*{answers[0].text}"></td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{answers[1].text}"></td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{answers[2].text}"></td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{answers[3].text}"></td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{answers[4].text}"></td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{answers[5].text}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</form>
 
+        <label>صورت سوال</label><br>
+        <input type="text" th:field="*{text}"><br>
+
+        <label>عنوان سوال</label><br>
+        <input type="text" th:field="*{title}"><br>
+
+        <label>نمره پیش فرض</label><br>
+        <input type="text" th:field="*{defaultScore}"><br>
+
+        <label>تاریخ ایجاد سوال</label><br>
+        <input type="date" th:field="*{createdDate}"><br>
+
+    <p>گزینه های جواب(تعداد گزینه ها اختیاری می باشد)</p>
+
+    <textarea th:field="*{answers[0].text}" placeholder="1"></textarea>
+    <textarea th:field="*{answers[1].text}" placeholder="2"></textarea><br>
+    <textarea th:field="*{answers[2].text}" placeholder="3"></textarea>
+    <textarea th:field="*{answers[3].text}" placeholder="4"></textarea><br>
+    <textarea th:field="*{answers[4].text}" placeholder="5"></textarea>
+    <textarea th:field="*{answers[5].text}" placeholder="6"></textarea><br>
+
+    <button class="btn btn-primary" type="submit" style="border-radius: 10px;width: 170px;height: 62px">افزودن سوال</button>
+    <a class="btn btn-primary" style="border-radius: 10px;width: 170px" th:href="@{/teacher/backToMainMenuOfTeacher/(teacherId = ${teacherId})}">برگشت به داشبورد اختصاصی</a>
+
+</form>
+</div>
 </body>
 </html>

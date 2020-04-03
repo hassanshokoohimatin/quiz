@@ -9,27 +9,36 @@
 <!-- "detailedQuestion"
      "teacherId" -->
 
-<body>
+<body style="background-color: lightcyan">
 
-<div style="background-color: black ; opacity: 0.9 ; width: 400px ; height: 300px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+<div class="alert alert-success" role="alert" style="text-align: center">
+    افزودن سوال تشریحی جدید
+</div>
+
+<div style="background-color: #adb5bd ; border-radius : 15px ; width: 600px ; height: 500px ; margin-left: 400px ; margin-top: 50px">
     <form class="form-group" th:action="@{/teacher/addNewDetailedQuestion/__${teacherId}__}" method="post" th:object="${detailedQuestion}">
-                <span style="padding-left: 30px ; color: white ; text-align: center">
-                    create new detailed question
-                </span>
+
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" th:field="*{text}" type="text" name="text" placeholder="text">
+            <textarea style="height: 100px;margin-top: 20px" class="form-control" th:field="*{text}" name="text" placeholder="صورت سوال"></textarea>
         </div>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" th:field="*{title}" type="text" name="title" placeholder="title">
+            <input class="form-control" th:field="*{title}" type="text" name="title" placeholder="عنوان سوال">
         </div>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" th:field="*{createdDate}" type="date" name="createdDay" placeholder="createdDate">
+            <span style="color: white">
+                    تاریخ ایجاد سوال
+            </span>
+            <input class="form-control" th:field="*{createdDate}" type="date" name="createdDay">
         </div>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" th:field="*{defaultScore}" type="text" name="defaultScore" placeholder="defaultScore">
+            <span style="color: white">
+                    نمره پیش فرض
+            </span>
+            <input class="form-control" th:field="*{defaultScore}" type="text" name="defaultScore">
         </div>
         <div style="padding: 5px 30px 30px">
-            <input type="submit" class="btn btn-primary" value="create the question">
+            <input style="border-radius: 10px" type="submit" class="btn btn-primary" value="ایجاد سوال">
+            <a class="btn btn-primary" style="border-radius: 10px;width: 300px" th:href="@{/teacher/backToMainMenuOfTeacher/(teacherId = ${teacherId})}">برگشت به داشبورد اختصاصی</a>
         </div>
     </form>
 </div>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>signUpMessage</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- model : "message" -->
+
+<body>
+
+<div style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px;margin-left: 150px;background-color: #c82333">
+
+    <label th:if="${message == 1}" style="text-align: center">این نام کاربری قبلا ثبت شده است.لطفا نام کاربری دیگری انتخاب کنید</label><br>
+    <label th:if="${message == 2}" style="text-align: center">این ایمیل قبلا توسط کاربر دیگری ثبت شده است.لطفا ایمیل دیگری انتخاب کنید</label><br>
+    <label th:if="${message == 3}" style="text-align: center">فیلد نام نمیتواند خالی بماند</label><br>
+    <label th:if="${message == 4}" style="text-align: center">فیلد نام خانوادگی نمیتواند خالی بماند</label><br>
+    <label th:if="${message == 5}" style="text-align: center">فیلد ایمیل نمیتواند خالی بماند</label><br>
+    <label th:if="${message == 6}" style="text-align: center">فرمت شماره تلفن همراه وارد شده معتبر نیست</label><br>
+    <label th:if="${message == 7}" style="text-align: center">فیلد شماره تلفن همراه نمیتواند خالی بماند</label><br>
+    <label th:if="${message == 8}" style="text-align: center">شماره ملی وارد شده اشتباه میباشد</label><br>
+    <label th:if="${message == 9}" style="text-align: center">فیلد شماره ملی نمیتواند خالی بماند</label><br>
+    <label th:if="${message == 10}" style="text-align: center">نام کاربری نمیتواند شامل کاراکترهای خاص ('!','@','#','$','%','^','&','*','(',')',':',';','"',',','/','~','`','+','=','<','>') باشد</label><br>
+    <label th:if="${message == 11}" style="text-align: center">طول نام کاربری نباید کوچکتر از شش باشد</label><br>
+    <label th:if="${message == 12}" style="text-align: center">انتخاب یک نام کاربری الزامی است</label><br>
+    <label th:if="${message == 13}" style="text-align: center">طول رمز عبور باید بیشتر از هشت کاراکتر باشد</label><br>
+    <label th:if="${message == 14}" style="text-align: center">رمز عبور های وارد شده یکی نیستند</label><br>
+    <label th:if="${message == 15}" style="text-align: center">برای حساب کاربری خود یک رمز عبور انتخاب کنید</label><br>
+    <label th:if="${message == 16}" style="text-align: center">لطفا جنسیت خود را تعیین کنید</label><br>
+    <label th:if="${message == 17}" style="text-align: center">حساب کاربری شما با موفقیت ثبت شد . شما باید منتظر تایید حساب کاربری از جانب مدیریت باشید</label><br>
+    <label th:if="${message == 18}" style="text-align: center">یکی از سوال های امنیتی را انتعاب کنید(برای مواقعی که رمز عبور خود را فرلموش کرده اید)</label><br>
+    <label th:if="${message == 19}" style="text-align: center">برای سوال امنیتی انتخاب شده یک جواب در نظر بگیرید و آن را به خاطر بسپارید</label><br>
+
+    <form th:action="@{/signUp}">
+        <input class="btn btn-primary" type="submit" value="بازگشت به صفحه ثبت نام">
+    </form>
+
+</div>
+
+</body>
+</html>

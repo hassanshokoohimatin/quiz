@@ -9,38 +9,37 @@
 <!-- "studentExamPaper"
      "examService" -->
 
-<body>
+<body style="background-color: #138496">
 
-<div id="myDiv" style="width: 1200px ; height: 120px ; margin-left: 50px ; margin-top: 200px ; justify-content: center" onclick="cellColor()">
-    <h3 id="myHeader" style="text-align: center" onclick="cellColor()"></h3>
-    <table class="table table-striped" onclick="cellColor()" style="padding-top: 30px">
+<div id="myDiv" style="border-radius: 20px; width: 1200px ; height: 200px ; margin-left: 70px ; margin-top: 200px ;">
+    <h3 id="myHeader" style="text-align: center"></h3>
+    <table class="table table-striped" style="padding-top: 30px">
         <thead>
         <tr>
-            <td>تعداد سوالات</td>
-            <td>نمره کل آزمون</td>
-            <td>نمره قبولی آزمون</td>
-            <td>نمره دریافتی شما</td>
+            <td style="text-align: center">تعداد سوالات</td>
+            <td style="text-align: center">نمره کل آزمون</td>
+            <td style="text-align: center">نمره قبولی آزمون</td>
+            <td style="text-align: center">نمره دریافتی شما</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td th:text="${examService.findExamById(studentExamPaper.examId).questions.size()}"></td>
-            <td th:text="${studentExamPaper.totalScore}"></td>
-            <td th:text="${studentExamPaper.passingScore}"></td>
-            <td th:text="${studentExamPaper.studentScore}" id="myCell"></td>
+            <td style="text-align: center" th:text="${examService.findExamById(studentExamPaper.examId).questions.size()}"></td>
+            <td style="text-align: center" th:text="${studentExamPaper.totalScore}"></td>
+            <td style="text-align: center" th:text="${studentExamPaper.passingScore}"></td>
+            <td style="text-align: center" th:text="${studentExamPaper.studentScore}" id="myCell"></td>
         </tr>
         </tbody>
     </table>
 
 </div>
+<div style="margin-left: 70px">
     <form th:action="@{/student/examsResults/__${studentExamPaper.studentId}__}">
-        <button type="submit" class="btn btn-primary">بازگشت به لیست برگه های امتحانی</button>
+        <button style="border-radius: 10px" type="submit" class="btn btn-primary">بازگشت به لیست برگه های امتحانی</button>
     </form>
     <form th:action="@{/student/backToStudent/__${studentExamPaper.studentId}__}">
-        <button type="submit" class="btn btn-primary">بازگشت به صفحه اصلی</button>
+        <button style="border-radius: 10px ; margin-left: 300px ; margin-top: -67px" type="submit" class="btn btn-primary">بازگشت به صفحه اصلی</button>
     </form>
-<div>
-
 </div>
 
 <script th:inline="javaScript">
@@ -52,6 +51,7 @@
 
     /*]]>*/
 
+    setInterval(
     function cellColor() {
 
         var myCell = document.getElementById("myCell");
@@ -60,13 +60,13 @@
 
         if (studentScore>passingScore){
 
-            myCell.style.backgroundColor = "#adff2f"
-            myDiv.style.backgroundColor = "#ffc0cb"
+            myCell.style.backgroundColor = "#34ce57"
+            myDiv.style.backgroundColor = '#9fcdff'
             myHeader.innerText = "شما آزمون را با موفقیت گذراندید";
         }
         else if (studentScore == passingScore){
-            myCell.style.backgroundColor = "#ffff00"
-            myDiv.style.backgroundColor = "#ffA500"
+            myCell.style.backgroundColor = "#34ce57"
+            myDiv.style.backgroundColor = '#9fcdff'
             myHeader.innerText = "شما آزمون را با موفقیت گذراندید";
         }
         else {
@@ -74,7 +74,7 @@
             myDiv.style.backgroundColor = "#778899"
             myHeader.innerText = "متاسفانه نمره کسب شده شما به حد نصاب نرسید";
         }
-    }
+    });
 </script>
 
 </body>

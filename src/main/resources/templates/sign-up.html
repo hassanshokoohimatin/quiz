@@ -4,56 +4,64 @@
     <meta charset="UTF-8">
     <title>sign up</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link href="/css/myCss.css" rel="stylesheet" type="text/css">
 </head>
 <body style="background-color: #ced4da ; background-size: cover">
-
-<div class="container" style="justify-content: center ; display: flex">
     <form role="form" th:action="@{/submitSignUp}" method="post" th:object="${userDto}">
-        <h2>Registration</h2>
-        <div class="form-group">
-            <label for="firstName">first name</label>
-            <div class="col-sm-9">
-                <input th:field="*{firstName}" type="text" id="firstName" placeholder="First Name" class="form-control" autofocus>
+        <fieldset>
+            <legend style="text-align: center">ایجاد حساب کاربری</legend>
+        <div class="signUpDiv">
+            <label>نام</label><br>
+            <input th:field="*{firstName}" type="text" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>نام خانوادگی</label><br>
+            <input th:field="*{lastName}" type="text" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>ایمیل</label><br>
+            <input th:field="*{email}" type="email" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>تلفن همراه</label><br>
+            <input th:field="*{mobileNumber}" type="text" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>کد ملی</label><br>
+            <input th:field="*{nationalCode}" type="text" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>نام کاربری</label><br>
+            <input th:field="*{username}" type="text" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>رمز عبور</label><br>
+            <input th:field="*{password}" type="password" class="inputText">
+        </div>
+        <div class="signUpDiv">
+            <label>تاببد رمز عبور</label><br>
+            <input th:field="*{passwordConfirm}" type="password" class="inputText">
+        </div>
+
+        <div class="signUpDiv">
+            <label>سوال امنیتی(از این سوال در مواقع فراموشی رمز عبور استفاده می شود)</label><br>
+            <div>
+                <select th:field="*{securityQuestion}">
+                    <option th:each="s : ${allSecurityQuestions}"
+                            th:value="${s.description}"
+                            th:text="${s.description}">
+                    </option>
+                </select>
             </div>
         </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <div class="col-sm-9">
-                <input th:field="*{lastName}" type="text" id="lastName" placeholder="Last Name" class="form-control" autofocus>
-            </div>
+
+        <div class="signUpDiv">
+            <label>جواب سوال امنیتی</label><br>
+            <input th:field="*{securityQuestionAnswer}" type="password" class="inputText">
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <div class="col-sm-9">
-                <input th:field="*{email}" type="email" id="email" placeholder="Email" class="form-control" name= "email">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="phoneNumber">Phone number</label>
-            <div class="col-sm-9">
-                <input th:field="*{mobileNumber}" type="text" id="phoneNumber" placeholder="Phone number" class="form-control" autofocus>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="nationalCode">National Code</label>
-            <div class="col-sm-9">
-                <input th:field="*{nationalCode}" type="text" id="nationalCode" placeholder="National Code" class="form-control" autofocus>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="username">username</label>
-            <div class="col-sm-9">
-                <input th:field="*{username}" type="text" id="username" placeholder="username" class="form-control" autofocus>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <div class="col-sm-9">
-                <input th:field="*{password}" type="password" id="password" placeholder="Password" class="form-control">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Role</label>
+
+        <div class="signUpDiv">
+            <label>رل(نقش)</label><br>
             <div>
                 <select th:field="*{role}">
                     <option th:each="role : ${allRoles}"
@@ -64,8 +72,8 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <label>Gender</label>
+        <div class="signUpDiv">
+            <label>جنسیت</label><br>
             <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-5">
@@ -81,9 +89,9 @@
                 </div>
             </div>
         </div> <!-- /.form-group -->
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
+        <button type="submit" style="border-radius: 10px" class="btn btn-primary signUpDiv">ایجاد حساب کاربری</button>
+        </fieldset>
     </form>
-</div>
-
+</fieldset>
 </body>
 </html>

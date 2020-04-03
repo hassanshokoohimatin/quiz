@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit-account</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "user"
+     "accountDto" -->
+
+<body>
+
+<div style="width: 800px;height: 400px;margin-left: 150px;margin-top: 100px;border-radius: 20px">
+    <form th:action="@{/submitEditAccount/__${userId}__}">
+    <label th:text="${user.firstName}"></label><br>
+    <input type="text" th:field="*{accountDto.firstName}"><br>
+    <label th:text="${user.lastName}"></label><br>
+    <input type="text" th:field="*{accountDto.lastName}"><br>
+    <label th:text="${user.email}"></label><br>
+    <input type="email" th:field="*{accountDto.email}"><br>
+    <label th:text="${user.mobileNumber}">شماره تلفن ورودی باید با فرمت 09 باشد</label><br>
+    <input type="text" th:field="*{accountDto.mobileNumber}"><br>
+    <label th:text="${user.username}">طول نام کاربری باید بیشتر از شش کاراکتر باشد</label><br>
+    <input type="text" th:field="*{accountDto.username}"><br>
+    <label>تغییر گذرواژه</label>طول رمز عبور باید بیشتر از هشت کاراکتر باشد<br>
+    <input type="text" th:field="*{accountDto.oldPassword}" placeholder="enter old pass">
+    <input type="text" th:field="*{accountDto.newPassword}" placeholder="new pass"><br>
+    <input type="text" th:field="*{accountDto.newPasswordConfirm}" placeholder="confirm">
+    <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+</div>
+
+</body>
+</html>

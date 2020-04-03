@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit-account-error</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- "errorNumber"
+     "userId" -->
+
+<body>
+
+<div class="alert alert-danger" style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px">
+
+    <label th:if="${errorNumber == 1}">فرمت شماره تلفن همراه وارد شده معتبر نیست</label><br>
+    <label th:if="${errorNumber == 2}">نام کاربری نمیتواند شامل کاراکترهای خاص ('!','@','#','$','%','^','&','*','(',')',':',';','"',',','/','~','`','+','=','<','>') باشد</label><br>
+    <label th:if="${errorNumber == 3}">طول نام کاربری نباید کوچکتر از شش باشد</label><br>
+    <label th:if="${errorNumber == 4}">طول رمز عبور نمیتواند کوچکتر از هشت کاراکتر باشد</label><br>
+    <label th:if="${errorNumber == 5}">تایید رمز عبور جدید نادرست است</label><br>
+    <label th:if="${errorNumber == 6}">رمز عبور خود را اشتباه وارد کرده اید</label><br>
+
+    <form th:action="@{/editAccount/__${userId}__}">
+        <input class="btn btn-primary" type="submit" value="برگشت به صفحه ویرایش حساب کاربری">
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+.divStyle {
+    border-radius : 25px ; width: 800px ; height: 200px ; margin-left: 270px ; margin-top: 200px ; background-color: #7abaff;
+}
+
+.inputNextQ{
+    margin-top: 0 ; margin-left: 400px;
+}
+
+.textArea{
+    border-radius: 10px ; background-color: #bee5eb ; width: 400px ; height: 100px ; margin-left: 20px;
+}
+
+.signUpDiv{
+    margin-left: 550px;margin-top: 10px
+}
+
+.inputText{
+    border-radius: 10px;background-color: #fff3cd
+}
+
+.aButton{
+    font-size: large;margin-top: 10px;width: 400px;background-color: #856404;
+}
+

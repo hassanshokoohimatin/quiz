@@ -8,19 +8,20 @@
 
 <!-- model : "studentId" -->
 
-<body style="background-image: url('images/exam02.jpg') ; background-size: cover">
+<body style="background-image: url('images/the_test.png') ; background-size: cover">
 
-<div class="alert alert-success" role="alert" style="opacity: 0.5">
-    <h2 class="alert-heading" style="text-align: center">
-        students page
+<div style="background-color: #c82333 ; width: 100% ; height: 80px;">
+    <h2 style="text-align: center;color: white">
+        داشبورد اختصاصی دانش آموز
     </h2>
 </div>
 
-<div class="btn-group-vertical">
+<div style="margin-top: 50px;margin-left: 1000px" class="btn-group-vertical">
 
-    <a class="btn btn-primary" th:href="@{/student/listStudentCourses/__${studentId}__}">لیست دوره های شما</a>
-
-    <a class="btn btn-primary" th:href="@{/student/examsResults/__${studentId}__}">نتایح آزمون</a>
+    <a style="border-radius: 10px;font-size: x-large" class="btn btn-danger" th:href="@{/student/listStudentCourses/__${studentId}__}">لیست دوره های شما</a>
+    <a style="border-radius: 10px;font-size: x-large;margin-top: 5px" class="btn btn-danger" th:href="@{/student/examsResults/__${studentId}__}">نتایح آزمون</a>
+    <a style="border-radius: 10px;font-size: x-large;margin-top: 5px" class="btn btn-danger" th:href="@{/editAccount/__${studentId}__}">ویرایش حساب کاربری</a>
+    <a style="border-radius: 10px;font-size: x-large;margin-top: 5px" class="btn btn-danger" th:href="@{/}">خروج از حساب کاربری</a>
 
 </div>
 

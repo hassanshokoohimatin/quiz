@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>signInMessage</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<!-- " message" -->
+
+<body>
+
+<div style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px;margin-left: 150px;background-color: #c82333">
+
+    <label th:if="${message == 1}" style="text-align: center">حساب کاربری شما غیرفعال شده است.باید منتظر بمانید یا با مدیریت تماس بگیرید</label><br>
+    <label th:if="${message == 2}" style="text-align: center">حساب کاربری شما از سوی مدیریت هنوز فعال نشده است. باید منتظر بمانید</label><br>
+    <label th:if="${message == 3}" style="text-align: center">این نام کاربری وجود ندارد و یا رمز عبور وارد شده صحیح نمی باشد</label><br>
+    <label th:if="${message == 4}" style="text-align: center">جواب شما به سوال امنیتی نادرست بود. نمیتوانید وارد این حساب کاربری شوید</label><br>
+    <label th:if="${message == 5}" style="text-align: center">نام کاربری وارد شده صحیح نمی باشد</label><br>
+
+    <form th:action="@{/}">
+        <input class="btn btn-primary" type="submit" value="برگشت به صفحه ورود">
+    </form>
+
+</div>
+
+
+</body>
+</html>

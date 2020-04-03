@@ -13,27 +13,27 @@
 
 <body>
 
-<div id="myDiv" style="width: 1200px ; height: 120px ; margin-left: 50px ; margin-top: 200px ; justify-content: center" onclick="cellColor()">
-    <h3 id="myHeader" style="text-align: center" onclick="cellColor()"></h3>
-    <table class="table table-striped" onclick="cellColor()" style="padding-top: 30px">
+<div id="myDiv" style="width: 1200px ; height: 200px ; margin-left: 50px ; margin-top: 200px ;">
+    <h3 id="myHeader" style="text-align: center"></h3>
+    <table class="table table-striped"style="padding-top: 20px">
         <thead>
         <tr>
-            <td>تعداد سوالات</td>
-            <td>تعداد سوالات پاسخ داده شده</td>
-            <td>تعداد پاسخ های صحیح</td>
-            <td>نمره کل آزمون</td>
-            <td>نمره قبولی آزمون</td>
-            <td>نمره دریافتی شما</td>
+            <td style="text-align: center">تعداد سوالات</td>
+            <td style="text-align: center">تعداد سوالات پاسخ داده شده</td>
+            <td style="text-align: center">تعداد پاسخ های صحیح</td>
+            <td style="text-align: center">نمره کل آزمون</td>
+            <td style="text-align: center">نمره قبولی آزمون</td>
+            <td style="text-align: center">نمره دریافتی شما</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td th:text="${numberOfExamQuestions}"></td>
-            <td th:text="${numberOfAnsweredQuestions}"></td>
-            <td th:text="${numberOfCorrectAnswered}"></td>
-            <td th:text="${studentExamPaper.totalScore}"></td>
-            <td th:text="${studentExamPaper.passingScore}"></td>
-            <td th:text="${studentExamPaper.studentScore}" id="myCell"></td>
+            <td style="text-align: center" th:text="${numberOfExamQuestions}"></td>
+            <td style="text-align: center" th:text="${numberOfAnsweredQuestions}"></td>
+            <td style="text-align: center" th:text="${numberOfCorrectAnswered}"></td>
+            <td style="text-align: center" th:text="${studentExamPaper.totalScore}"></td>
+            <td style="text-align: center" th:text="${studentExamPaper.passingScore}"></td>
+            <td style="text-align: center" th:text="${studentExamPaper.studentScore}" id="myCell"></td>
         </tr>
         </tbody>
     </table>
@@ -47,6 +47,8 @@
     var studentScore = /*[[${studentExamPaper.studentScore}]]*/  0;
 
     /*]]>*/
+
+    var x = setInterval(
 
     function cellColor() {
 
@@ -70,7 +72,7 @@
             myDiv.style.backgroundColor = "#778899"
             myHeader.innerText = "متاسفانه نمره کسب شده شما به حد نصاب نرسید";
         }
-    }
+    });
 </script>
 
 </body>
