@@ -8,22 +8,35 @@
 
 <!-- " message" -->
 
-<body>
+<body style="background-color: #cbd3da">
 
-<div style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px;margin-left: 150px;background-color: #c82333">
+<div style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px;margin-left: 300px;background-color: red">
 
-    <label th:if="${message == 1}" style="text-align: center">حساب کاربری شما غیرفعال شده است.باید منتظر بمانید یا با مدیریت تماس بگیرید</label><br>
-    <label th:if="${message == 2}" style="text-align: center">حساب کاربری شما از سوی مدیریت هنوز فعال نشده است. باید منتظر بمانید</label><br>
-    <label th:if="${message == 3}" style="text-align: center">این نام کاربری وجود ندارد و یا رمز عبور وارد شده صحیح نمی باشد</label><br>
-    <label th:if="${message == 4}" style="text-align: center">جواب شما به سوال امنیتی نادرست بود. نمیتوانید وارد این حساب کاربری شوید</label><br>
-    <label th:if="${message == 5}" style="text-align: center">نام کاربری وارد شده صحیح نمی باشد</label><br>
+    <p id="divP" style="text-align: center;margin-top: 30px;color: white;font-size: x-large"></p>
 
     <form th:action="@{/}">
-        <input class="btn btn-primary" type="submit" value="برگشت به صفحه ورود">
+        <input class="btn btn-info" type="submit" value="برگشت به صفحه ورود" style="margin-left: 300px">
     </form>
 
 </div>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ 'message';
+    /*]]>*/
+
+    setInterval(function () {
+
+        var p = "";
+        if (message==1){p = "حساب کاربری شما غیرفعال شده است.باید منتظر بمانید یا با مدیریت تماس بگیرید"}
+        if (message==2){p = "حساب کاربری شما از سوی مدیریت هنوز فعال نشده است. باید منتظر بمانید"}
+        if (message==3){p = "این نام کاربری وجود ندارد و یا رمز عبور وارد شده صحیح نمی باشد"}
+        if (message==4){p = "جواب شما به سوال امنیتی نادرست بود. نمیتوانید وارد این حساب کاربری شوید"}
+        if (message==5){p = "نام کاربری وارد شده صحیح نمی باشد"}
+
+        document.getElementById("divP").innerHTML = p;
+    })
+</script>
 
 </body>
 </html>

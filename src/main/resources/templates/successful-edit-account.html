@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>successful-edit-account</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
+
+<!-- "user" -->
+
 <body>
 
-success
+<div class="alert alert-success" role="alert" style="margin-top: 200px">
+    <h3 class="alert-heading" style="text-align: center">پروفایل کاربری شما با موفقیت ویرایش شد</h3>
+
+    <a style="margin-left: 50%;border-radius: 10px" class="btn btn-primary"
+       th:href="@{/signIn/(username = ${user.username} , password = ${user.password})}"></a>
+
+</div>
 
 </body>
 </html>

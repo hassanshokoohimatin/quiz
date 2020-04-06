@@ -1,5 +1,5 @@
 .divStyle {
-    border-radius : 25px ; width: 800px ; height: 200px ; margin-left: 270px ; margin-top: 200px ; background-color: #7abaff;
+    border-radius : 25px ; width: 800px ; height: 300px ; margin-left: 300px ; margin-top: 50px ; background-color: #7abaff;
 }
 
 .inputNextQ{
@@ -22,3 +22,16 @@
     font-size: large;margin-top: 10px;width: 400px;background-color: #856404;
 }
 
+.correctAnswerDiv{
+    width: 800px;
+    height: 400px;
+    margin-left: 300px;
+    margin-top: 150px;
+    background-color: #86cfda;
+    border-radius: 20px;
+}
+
+.timeSection{
+    width: 400px;height: 100px;margin-top: 50px;margin-left: 480px;border-radius: 10px;
+    background-color: #8fd19e;
+}

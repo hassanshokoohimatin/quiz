@@ -8,9 +8,13 @@
 
 <!-- model : "courseExams" -->
 
-<body>
+<body style="background-color: #dee2e6">
 
-<table class="table table-striped table-light">
+<div class="alert alert-success">
+    <p style="text-align: center;font-size: x-large;font-weight: bold">لیست آزمون های دوره</p>
+</div>
+
+<table class="table table-striped table-success">
     <thead>
     <tr>
         <th>نام آزمون</th>
@@ -26,12 +30,18 @@
         <td th:text="${exam.description}"></td>
         <td>
             <form th:action="@{/student/gotThisExam/__${exam.id}__/__${studentId}__}">
-                <button class="btn btn-primary" type="submit">got this exam</button>
+                <button class="btn btn-primary" type="submit" onclick="alertFunction()">شرکت در این آزمون</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<script>
+    function alertFunction() {
+        alert("شما فقط یک بار قادر به شرکت در آزمون هستید...با ورود به آزمون دبگر قادر به شرکت در آزمون نخواهید بود");
+    }
+</script>
 
 </body>
 </html>

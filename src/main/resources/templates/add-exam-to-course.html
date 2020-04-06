@@ -5,35 +5,38 @@
     <title>add-exam-to-course</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-color: #dee2e6">
 
-<!-- model : "exam" *** model : "courseId" the id of course -->
+<!-- model : "exam" *** model : "courseId" *** "courseService" -->
 
-<div style="background-color: black ; opacity: 0.9 ; width: 600px ; height: 600px ; margin-left: 500px ; margin-right: 200px ; margin-top: 100px">
+<p style="margin-top: 30px;text-align: center;font-size: x-large">ایجاد آزمون جدید</p>
+<div style="border-radius: 15px;background-color: #7abaff ; opacity: 0.9 ; width: 600px ; height: 500px ; margin-left: 380px ; margin-right: 200px ; margin-top: 100px">
     <form class="form-group" th:action="@{/teacher/addExam/(courseId = ${courseId})}" method="post" th:object="${exam}">
-                <span style="padding-left: 30px ; color: white">
-                    تعربف آزمون
-                </span>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" type="text" th:field="*{name}" name="name" placeholder="نام آزمون">
+            <label>نام آزمون</label><br>
+            <input class="form-control" type="text" th:field="*{name}" name="name">
         </div>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" type="text" th:field="*{description}" name="description" placeholder="توضیح">
+            <label>توضیح در مورد آزمون</label><br>
+            <input class="form-control" type="text" th:field="*{description}" name="description">
         </div>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" type="date" th:field="*{createdDate}" name="description" placeholder="تاریخ ایجاد دوره">
+            <label>تاربخ ایجاد دوره</label><br>
+            <input class="form-control" type="date" th:field="*{createdDate}" name="description">
         </div>
         <div style="padding: 5px 30px 30px">
-            <input class="form-control" type="text" th:field="*{time}" name="time" placeholder="زمان مورد نیاز">
+            <label>زمان مورد نیاز(دقیقه)</label><br>
+            <input class="form-control" type="text" th:field="*{time}" name="time">
         </div>
         <div style="padding: 1px 30px 30px">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" style="border-radius: 10px">
                 اضافه کردن آزمون
             </button>
+            <a class="btn btn-primary" style="border-radius: 10px"
+               th:href="@{/teacher/backToMainMenuOfTeacher/(teacherId = ${courseService.findCourseById(courseId).teacher.id})}">بازگشت به صفحه اصلی</a>
         </div>
     </form>
 </div>
-
 
 </body>
 </html>

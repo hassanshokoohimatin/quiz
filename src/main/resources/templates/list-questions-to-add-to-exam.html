@@ -11,23 +11,23 @@
 
 <body>
 
+<h3 style="text-align: center;margin-bottom: 20px">لیست سوالات شما</h3>
 
 <form th:action="@{/question/newQuestion/__${examId}__}" th:object="${questionTypeDto}">
-    <select th:field="*{questionType}">
+    <input class="btn btn-primary" type="submit" value="ایجاد سوال جدید">
+    <select th:field="*{questionType}" style="color: red;width: 200px;height: 37px;border-radius: 5px;background-color: #8fd19e">
         <option th:each="item : ${questionTypes}" th:value="${item}" th:text="${item}" th:name="selectedQuestionType">
         </option>
     </select>
-    <input class="btn btn-primary" type="submit" value="create">
 </form>
 
-
-<table class="table table-striped table-dark">
+<table class="table table-striped table-primary" style="margin-top: 10px">
     <thead>
     <tr>
-        <th>title</th>
-        <th>default score</th>
-        <th>type</th>
-        <th colspan="2">add this question to exam</th>
+        <th>عنوان سوال</th>
+        <th>نمره پیش فرض</th>
+        <th>نوع سوال</th>
+        <th colspan="2">افزودن سوال</th>
     </tr>
     </thead>
     <tbody>
@@ -35,15 +35,19 @@
         <td th:text="${question.title}"></td>
         <td th:text="${question.defaultScore}"></td>
         <td th:text="${question.type.toString()}"></td>
-        <td><button class="btn btn-primary" th:onclick="|addConfirm(${question.id})|">add</button></td>
+        <td><button class="btn btn-primary" th:onclick="|addConfirm(${question.id})|">افزودن سوال</button></td>
         <td>
             <form th:action="@{/question/addSelectedQuestionToExam/__${question.id}__/__${examId}__}">
-                <input hidden class="btn btn-light" type="submit" th:id="${question.id}" value="add confirm">
+                <input hidden class="btn btn-light" type="submit" th:id="${question.id}" value="تایید">
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<div>
+    <a th:href="@{/question/questions/__${examId}__}" class="btn btn-primary">بازگشت به لیست سوالات آزمون</a>
+</div>
 
 <script>
     function addConfirm(id) {

@@ -206,12 +206,12 @@ public class HomeController {
                     newUser.setSecurityAnswer(userDto.getSecurityQuestionAnswer());
 
                 }else {
-                    ra.addAttribute("message" , 18);
+                    ra.addAttribute("message" , 19);
                     return "redirect:/signUpMessage";
                 }
 
             }else {
-                ra.addAttribute("message" , 19);
+                ra.addAttribute("message" , 18);
                 return "redirect:/signUpMessage";
             }
 
@@ -315,7 +315,8 @@ public class HomeController {
     }
 
     @RequestMapping("/submitEditAccount/{userId}")
-    public String edit(@PathVariable("userId") Long userId,
+    public String edit(Model model ,
+                       @PathVariable("userId") Long userId,
                        RedirectAttributes ra,
                        @ModelAttribute("accountDto") EditAccountDto accountDto) {
 
@@ -380,7 +381,9 @@ public class HomeController {
 
         userService.saveUser(user);
 
-        return "successful-edit-account";//TODO:add template
+        model.addAttribute("user" , user);
+
+        return "successful-edit-account";
 
     }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import quiz.dto.SearchDto;
 import quiz.model.Course;
 import quiz.model.User;
@@ -183,6 +184,22 @@ public class AdminController {
         model.addAttribute("allActiveStudents" , allActiveStudents);
 
         return "add-students-to-course";
+
+    }
+
+    @RequestMapping("/removeStudentFromCourse/{studentId}/{courseId}")
+    public String remove(@PathVariable("studentId") Long studentId ,
+                         RedirectAttributes ra ,
+                         @PathVariable("courseId") Long courseId){
+        User student = userService.findById(studentId);
+        Course course = courseService.findCourseById(courseId);
+
+        course.getStudents().remove(student);
+        courseService.saveCourse(course);
+
+        ra.addAttribute("id" , courseId);
+
+        return "redirect:/admin/listStudentsOfACourse";
 
     }
 

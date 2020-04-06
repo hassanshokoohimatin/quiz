@@ -10,44 +10,79 @@
 <!-- model : "question"
      model : "questionAnswerDto"
      model : "questionCounter"
-     model : "size" -->
+     model : "size"
+     model : "examFinishTime" -->
 
-<body style="background-image: url('/images/exam01.jpg') ; background-size: cover">
+<body style="background-color: #dee2e6">
 
-<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}"
+<div class="timeSection">
+    <p style="text-align: center;margin-top: 50px" id="timeSection"></p>
+</div>
+
+<div id="mainDiv">
+<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__/__${examFinishTime}__}"
       method="post" th:if="${question.type.toString() == 'MultiChoice'}">
-
     <div class="divStyle">
-    <label style="padding: 20px 20px" th:text="${question.text}" ></label><br>
+        <label style="padding: 20px 20px" th:text="${question.text}" ></label><br>
 
-    <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
-    <input type="radio" th:field="*{questionAnswerDto.answerId}"
+        <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
+        <input type="radio" th:field="*{questionAnswerDto.answerId}" style="margin-left: 20px;"
            th:each="choice : ${question.answers}" th:text="${choice.text}" th:value="${choice.id}">
     </div>
     <input type="submit" class="btn btn-primary inputNextQ" value="سوال بعدی" th:disabled="${questionCounter == size - 1}">
     <input type="submit" style="margin-left: 10px" class="btn btn-primary" value="پایان آزمون" th:if="${questionCounter == size - 1}">
-
 </form>
 
-<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__}"
+<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter + 1}__/__${examFinishTime}__}"
       method="post" th:if="${question.type.toString() == 'Detailed' }">
-
     <div class="divStyle">
-    <label style="padding: 20px 20px" th:text="${question.text}" ></label><br>
-    <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
-    <textarea class="textArea" th:field="*{questionAnswerDto.detailedAnswer}" placeholder="جواب را اینجا وارد کنید"></textarea>
+        <label style="padding: 20px 20px" th:text="${question.text}" ></label><br>
+        <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
+        <textarea class="textArea" th:field="*{questionAnswerDto.detailedAnswer}" placeholder="جواب را اینجا وارد کنید"></textarea>
     </div>
     <input type="submit" class="btn btn-primary inputNextQ" value="سوال بعدی" th:disabled="${questionCounter == size - 1}">
     <input type="submit" style="margin-left: 10px" class="btn btn-primary" value="پایان آزمون" th:if="${questionCounter == size - 1}">
-
 </form>
 
-<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter - 1}__}" method="post">
-    <div style="margin-left: 280px ; margin-top: -38px">
+<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${questionCounter - 1}__/__${examFinishTime}__}" method="post">
+    <div style="margin-left: 300px ; margin-top: -38px">
     <input type="submit" class="btn btn-primary" value="سوال قبلی" th:disabled="${questionCounter == 0}">
     </div>
     <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
 </form>
+</div>
+
+<div id="finishDiv" hidden style="margin-left: 650px">
+<form th:action="@{/student/submitQuestion/__${examId}__/__${studentId}__/__${size}__/__${examFinishTime}__}" method="post">
+    <input hidden type="number" th:field="*{questionAnswerDto.questionId}">
+    <input type="submit" class="btn btn-primary" value="پایان آزمون">
+</form>
+</div>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    var examFinishTime = /*[[${examFinishTime}]]*/ 'examFinishTime';
+    /*]]>*/
+
+    var x = setInterval(function () {
+        var current = new Date().getTime();
+        var dis = examFinishTime - current;
+
+        var hours = Math.floor((dis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((dis % (1000 * 60)) / 1000);
+
+        document.getElementById("timeSection").innerHTML = " زمان باقی مانده آزمون : " + hours + " ساغت " + minutes + " دقیقه " + seconds + " ثانیه ";
+
+        if (hours<0 || minutes<0) {
+            clearInterval(x);
+            document.getElementById("timeSection").innerHTML = "زمان آزمون به پایان رسیده است";
+            document.getElementById("mainDiv").hidden = true;
+            document.getElementById("finishDiv").hidden = false;
+        }
+    } , 1000);
+</script>
 
 </body>
 </html>

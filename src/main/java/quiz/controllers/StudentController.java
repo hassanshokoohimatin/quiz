@@ -16,6 +16,7 @@ import quiz.services.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 import java.util.stream.Collectors;
 
 @Controller
@@ -123,22 +124,34 @@ public class StudentController {
                 model.addAttribute("question", (MultiChoiceQuestion) question);
             else
                 model.addAttribute("question" , (DetailedQuestion) question);
-
+            //==========================================================================================================
+            Integer examTimeMinutes = examService.findExamById(examId).getTime();
+            Date examFinishTime = new Date();
+            if (examTimeMinutes/60 > 0){
+                int examHour = examTimeMinutes/60;
+                int examMin = examTimeMinutes%60;
+                examFinishTime.setHours(examFinishTime.getHours() + examHour);
+                examFinishTime.setMinutes(examFinishTime.getMinutes() + examMin);
+            }else {
+                examFinishTime.setMinutes(examFinishTime.getMinutes() + examTimeMinutes);
+            }
+            //==========================================================================================================
             model.addAttribute("questionAnswerDto" , questionAnswerDto);
             model.addAttribute("questionCounter" , 0);
             model.addAttribute("size" , examQuestions.size());
+            model.addAttribute("examFinishTime" , examFinishTime.getTime());
 
             return "exam-start";
-
         }
     }
 
-    @RequestMapping(value = "/submitQuestion/{examId}/{studentId}/{questionCounter}" , method = RequestMethod.POST)
+    @RequestMapping(value = "/submitQuestion/{examId}/{studentId}/{questionCounter}/{examFinishTime}" , method = RequestMethod.POST)
     public String submitExam(Model model ,
                              @PathVariable("examId") Long examId ,
                              @PathVariable("studentId") Long studentId ,
                              @PathVariable("questionCounter") int questionCounter ,
-                             @ModelAttribute("questionAnswerDto") QuestionAnswerDto questionAnswerDto){
+                             @ModelAttribute("questionAnswerDto") QuestionAnswerDto questionAnswerDto ,
+                             @PathVariable("examFinishTime") Long examFinishTime){
 
         Question submittedQuestion = questionService.findQuestionById(questionAnswerDto.getQuestionId());
 
@@ -195,6 +208,15 @@ public class StudentController {
             studentExamPaper.setTotalScore(totalScore);
             examPaperService.save(studentExamPaper);
 
+            for (Question q : examService.findExamById(examId).getQuestions()){
+                if (q instanceof DetailedQuestion) {
+                    if (!studentExamPaper.getDetailedQuestionsAnswers().keySet().contains(q.getId()))
+                        studentExamPaper.getDetailedQuestionsAnswers().put(q.getId() , "");
+                }
+            }
+
+            examPaperService.save(studentExamPaper);
+
             if (examService.findExamById(examId).getScoringType().equals(ExamScoringType.Automatic)){
 
                 int numberOfExamQuestions = examQuestions.size();
@@ -236,6 +258,7 @@ public class StudentController {
             model.addAttribute("questionAnswerDto", questionAnswerDto);
             model.addAttribute("questionCounter", questionCounter);
             model.addAttribute("size" , examQuestions.size());
+            model.addAttribute("examFinishTime" , examFinishTime);
 
             return "exam-start";
         }

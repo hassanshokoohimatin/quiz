@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <title>select-correct-answer</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link href="/css/myCss.css" rel="stylesheet" type="text/css">
 </head>
 
 <!-- model : "choicesList" *** model : "multiChoiceQuestion" *** model : "examId" -->
 
-<body>
-
+<body style="background-color: #dee2e6">
+<div class="correctAnswerDiv">
 <form th:action="@{/question/selectCorrectAnswer/__${examId}__/__${multiChoiceQuestion.id}__}">
-<select name="correctAnswerId">
-    <option th:each="choice : ${choicesList}" th:text="${choice.text}" th:value="${choice.id}">
 
-    </option>
-</select>
-    <input type="submit" value="choose">
+    <input style="margin-top: 20px;margin-left: 20px" type="radio" th:each="choice : ${choicesList}"
+           th:text="${choice.text}" th:value="${choice.id}" name="correctAnswerId">
+
+<div style="margin-left: 10px;margin-top: 300px">
+    <input style="border-radius: 10px" type="submit" value="انتخاب گزینه صحیح" class="btn btn-primary">
+</div>
+
 </form>
+</div>
 
 </body>
 </html>

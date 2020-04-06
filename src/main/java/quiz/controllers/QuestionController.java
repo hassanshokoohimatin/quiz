@@ -35,6 +35,7 @@ public class QuestionController {
 
         model.addAttribute("questions" , questions);
         model.addAttribute("examId" , examId);
+        model.addAttribute("examService" , examService);
 
         return "list-questions-of-exam";
     }
@@ -115,6 +116,7 @@ public class QuestionController {
 
             model.addAttribute("multiChoiceQuestion" , multiChoiceQuestion);
             model.addAttribute("examId" , examId);
+            model.addAttribute("examService" , examService);
 
             return "create-new-multiChoice-question";
 
@@ -124,6 +126,7 @@ public class QuestionController {
 
             model.addAttribute("detailedQuestion" , detailedQuestion);
             model.addAttribute("examId" , examId);
+            model.addAttribute("examService" , examService);
 
             return "create-new-detailed-question";
         }

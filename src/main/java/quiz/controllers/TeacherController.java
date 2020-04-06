@@ -66,6 +66,7 @@ public class TeacherController {
 
         model.addAttribute("exam" , exam);
         model.addAttribute("courseId" , courseId);
+        model.addAttribute("courseService" , courseService);
 
         return "add-exam-to-course";
     }
@@ -109,14 +110,13 @@ public class TeacherController {
 
         model.addAttribute("examTotalScoreMap" , examTotalScore);
         model.addAttribute("courseId" , courseId);
-        model.addAttribute("exams" , exams);
+        model.addAttribute("courseService" , courseService);
 
         return "list-exams-of-course";
     }
 
     @RequestMapping(value = "/editExam/{examId}")
     public String editExam(Model model ,
-                           @ModelAttribute ArrayList<Exam> exams ,
                            @PathVariable(value = "examId") Long examId){
 
         EditExamDto editExamDto = new EditExamDto();
@@ -130,7 +130,6 @@ public class TeacherController {
         model.addAttribute("editExamDto" , editExamDto);
         model.addAttribute("exam" , exam);
         model.addAttribute("examTotalScore" , examTotalScore);
-        model.addAttribute("exams" , exams);
 
         return "edit-exam";
     }
@@ -142,13 +141,18 @@ public class TeacherController {
 
         Exam exam = examService.findExamById(examId);
 
+        float examTotalScore = 0;
+        for (Question q : exam.getQuestions()){
+            examTotalScore += q.getDefaultScore();
+        }
+
         if (2 <= editExamDto.getName().length() && editExamDto.getName().length() <= 15)
             exam.setName(editExamDto.getName());
         if (editExamDto.getDescription().length() != 0)
             exam.setDescription(editExamDto.getDescription());
         if (editExamDto.getTime() != null)
             exam.setTime(editExamDto.getTime());
-        if (editExamDto.getPassingScore() != 0)
+        if (editExamDto.getPassingScore() != 0 && editExamDto.getPassingScore() <= examTotalScore)
             exam.setPassingScore(editExamDto.getPassingScore());
 
         examService.saveExam(exam);
@@ -162,39 +166,39 @@ public class TeacherController {
         return "list-teacher-courses";
     }
 
-    @RequestMapping(value = "/delete/{examId}/{courseId}")
-    public String delete(Model model ,
-                         @PathVariable(value = "examId") Long examId ,
-                         @PathVariable(value = "courseId") Long courseId){
-
-        examService.removeExamById(examId);
-
-        model.addAttribute("courseId" , courseId);
-        model.addAttribute("exams" , examService.findExamsByCourseId(courseId));
-
-        return "list-exams-of-course";
-    }
-
     @RequestMapping(value = "/submission/{examId}/{courseId}")
     public String submission(Model model ,
                              @PathVariable(value = "examId") Long examId ,
                              @PathVariable(value = "courseId") Long courseId){
 
         Exam exam = examService.findExamById(examId);
+
         List<Exam> exams = examService.findExamsByCourseId(courseId);
+
+        Map<Exam , Float> examTotalScore = new HashMap<>();
+        for (Exam e : exams){
+            float totalScore = 0;
+            for (Question question : e.getQuestions()){
+                totalScore += question.getDefaultScore();
+            }
+            examTotalScore.put(e , totalScore);
+        }
+
 
         if (exam.isPublished() == false){
             exam.setPublished(true);
             examService.saveExam(exam);
-            model.addAttribute("exams" , exams);
             model.addAttribute("courseId" , courseId);
+            model.addAttribute("courseService" , courseService);
+            model.addAttribute("examTotalScoreMap" , examTotalScore);
             return "list-exams-of-course";
         }
         else {
             exam.setPublished(false);
             examService.saveExam(exam);
-            model.addAttribute("exams" , exams);
             model.addAttribute("courseId" , courseId);
+            model.addAttribute("courseService" , courseService);
+            model.addAttribute("examTotalScoreMap" , examTotalScore);
             return "list-exams-of-course";
         }
     }

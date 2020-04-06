@@ -49,7 +49,8 @@
                 <select th:field="*{securityQuestion}">
                     <option th:each="s : ${allSecurityQuestions}"
                             th:value="${s.description}"
-                            th:text="${s.description}">
+                            th:text="${s.description}"
+                            th:selected="${allSecurityQuestions.get(0)}">
                     </option>
                 </select>
             </div>

@@ -8,35 +8,48 @@
 
 <!-- model : "message" -->
 
-<body>
+<body style="background-color: #cbd3da">
 
-<div style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px;margin-left: 150px;background-color: #c82333">
+<div style="border-radius: 20px;width: 800px;height: 200px;margin-top: 200px;margin-left: 300px;background-color: red">
 
-    <label th:if="${message == 1}" style="text-align: center">این نام کاربری قبلا ثبت شده است.لطفا نام کاربری دیگری انتخاب کنید</label><br>
-    <label th:if="${message == 2}" style="text-align: center">این ایمیل قبلا توسط کاربر دیگری ثبت شده است.لطفا ایمیل دیگری انتخاب کنید</label><br>
-    <label th:if="${message == 3}" style="text-align: center">فیلد نام نمیتواند خالی بماند</label><br>
-    <label th:if="${message == 4}" style="text-align: center">فیلد نام خانوادگی نمیتواند خالی بماند</label><br>
-    <label th:if="${message == 5}" style="text-align: center">فیلد ایمیل نمیتواند خالی بماند</label><br>
-    <label th:if="${message == 6}" style="text-align: center">فرمت شماره تلفن همراه وارد شده معتبر نیست</label><br>
-    <label th:if="${message == 7}" style="text-align: center">فیلد شماره تلفن همراه نمیتواند خالی بماند</label><br>
-    <label th:if="${message == 8}" style="text-align: center">شماره ملی وارد شده اشتباه میباشد</label><br>
-    <label th:if="${message == 9}" style="text-align: center">فیلد شماره ملی نمیتواند خالی بماند</label><br>
-    <label th:if="${message == 10}" style="text-align: center">نام کاربری نمیتواند شامل کاراکترهای خاص ('!','@','#','$','%','^','&','*','(',')',':',';','"',',','/','~','`','+','=','<','>') باشد</label><br>
-    <label th:if="${message == 11}" style="text-align: center">طول نام کاربری نباید کوچکتر از شش باشد</label><br>
-    <label th:if="${message == 12}" style="text-align: center">انتخاب یک نام کاربری الزامی است</label><br>
-    <label th:if="${message == 13}" style="text-align: center">طول رمز عبور باید بیشتر از هشت کاراکتر باشد</label><br>
-    <label th:if="${message == 14}" style="text-align: center">رمز عبور های وارد شده یکی نیستند</label><br>
-    <label th:if="${message == 15}" style="text-align: center">برای حساب کاربری خود یک رمز عبور انتخاب کنید</label><br>
-    <label th:if="${message == 16}" style="text-align: center">لطفا جنسیت خود را تعیین کنید</label><br>
-    <label th:if="${message == 17}" style="text-align: center">حساب کاربری شما با موفقیت ثبت شد . شما باید منتظر تایید حساب کاربری از جانب مدیریت باشید</label><br>
-    <label th:if="${message == 18}" style="text-align: center">یکی از سوال های امنیتی را انتعاب کنید(برای مواقعی که رمز عبور خود را فرلموش کرده اید)</label><br>
-    <label th:if="${message == 19}" style="text-align: center">برای سوال امنیتی انتخاب شده یک جواب در نظر بگیرید و آن را به خاطر بسپارید</label><br>
+    <p id="divP" style="text-align: center;margin-top: 30px;color: white;font-size: x-large"></p>
 
     <form th:action="@{/signUp}">
-        <input class="btn btn-primary" type="submit" value="بازگشت به صفحه ثبت نام">
+        <input class="btn btn-info" type="submit" value="بازگشت به صفحه ثبت نام" style="margin-left: 300px">
     </form>
 
 </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ 'message';
+    /*]]>*/
+
+    setInterval(function () {
+        var p = "";
+        if (message==1){p = "این نام کاربری قبلا ثبت شده است.لطفا نام کاربری دیگری انتخاب کنید"}
+        if (message==2){p = "این ایمیل قبلا توسط کاربر دیگری ثبت شده است.لطفا ایمیل دیگری انتخاب کنید"}
+        if (message==3){p = "فیلد نام نمیتواند خالی بماند"}
+        if (message==4){p = "فیلد نام خانوادگی نمیتواند خالی بماند"}
+        if (message==5){p = "فیلد ایمیل نمیتواند خالی بماند"}
+        if (message==6){p = "فرمت شماره تلفن همراه وارد شده معتبر نیست"}
+        if (message==7){p = "فیلد شماره تلفن همراه نمیتواند خالی بماند"}
+        if (message==8){p = "شماره ملی وارد شده اشتباه میباشد"}
+        if (message==9){p = "فیلد شماره ملی نمیتواند خالی بماند"}
+        if (message==10){p = "نام کاربری نمیتواند شامل کاراکترهای خاص ('!','@','#','$','%','^','&','*','(',')',':',';','\"',',','/','~','`','+','=','<','>') باشد"}
+        if (message==11){p = "طول نام کاربری نباید کوچکتر از شش باشد"}
+        if (message==12){p = "انتخاب یک نام کاربری الزامی است"}
+        if (message==13){p = "طول رمز عبور باید بیشتر از هشت کاراکتر باشد"}
+        if (message==14){p = "رمز عبور های وارد شده یکی نیستند"}
+        if (message==15){p = "برای حساب کاربری خود یک رمز عبور انتخاب کنید"}
+        if (message==16){p = "لطفا جنسیت خود را تعیین کنید"}
+        if (message==17){p = "حساب کاربری شما با موفقیت ثبت شد . شما باید منتظر تایید حساب کاربری از جانب مدیریت باشید"}
+        if (message==18){p = "یکی از سوال های امنیتی را انتخاب کنید(برای مواقعی که رمز عبور خود را فراموش کرده اید)"}
+        if (message==19){p = "برای سوال امنیتی انتخاب شده یک جواب در نظر بگیرید و آن را به خاطر بسپارید"}
+
+        document.getElementById("divP").innerHTML = p;
+    })
+</script>
 
 </body>
 </html>

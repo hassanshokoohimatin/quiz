@@ -8,15 +8,19 @@
 
 <!-- model : "studentCourses" -->
 
-<body>
+<body style="background-color: #dee2e6">
 
-<table class="table table-striped table-bordered">
+<div class="alert alert-success">
+    <p style="margin-top: 10px;text-align: center;font-size: x-large;font-weight: bold">لیست دوره های شما</p>
+</div>
+
+<table class="table table-striped table-success">
     <thead>
     <tr>
-        <th>course name</th>
-        <th>start date</th>
-        <th>teacher</th>
-        <th>action</th>
+        <th>لیست دوره های شما</th>
+        <th>تاریخ شروع</th>
+        <th>استاد</th>
+        <th>عملیات</th>
     </tr>
     </thead>
     <tbody>
@@ -26,12 +30,14 @@
         <td th:text="${course.teacher.lastName}"></td>
         <td>
             <form th:action="@{/student/examsOfCourse/__${course.id}__/__${studentId}__}">
-                <button class="btn btn-primary" type="submit">go</button>
+                <button class="btn btn-primary" type="submit">ورود به دوره</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<a class="btn btn-primary" th:href="@{/student/backToStudent/__${studentId}__}">بازگشت به داشبورد اختصاصی</a>
 
 </body>
 </html>
