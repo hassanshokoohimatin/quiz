@@ -7,11 +7,11 @@
 </head>
 <body>
 
-<h2>teachers</h2>
+<h2 style="text-align: center">لیست اساتید</h2>
 
 <!-- model : "course" without teacher and students *** model : "allTeachers" -->
 
-<table class="table table-striped table-dark">
+<table class="table table-striped table-primary">
     <thead>
     <tr>
         <th>استاد</th>
@@ -21,7 +21,7 @@
     <tbody>
     <tr th:each="teacher : ${allTeachers}">
         <td th:text="${teacher.firstName + ' ' + teacher.lastName}">teacher name</td>
-        <td><a th:href="@{/admin/addTeacherToCourse/(teacherId = ${teacher.id} , courseId = ${course.id})}" class="btn btn-warning">select teacher</a></td>
+        <td><a th:href="@{/admin/addTeacherToCourse/(teacherId = ${teacher.id} , courseId = ${course.id})}" class="btn btn-warning">انتخاب استاد</a></td>
     </tr>
     </tbody>
 </table>

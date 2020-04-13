@@ -10,7 +10,7 @@
 <!-- model : "exam" *** model : "courseId" *** "courseService" -->
 
 <p style="margin-top: 30px;text-align: center;font-size: x-large">ایجاد آزمون جدید</p>
-<div style="border-radius: 15px;background-color: #7abaff ; opacity: 0.9 ; width: 600px ; height: 500px ; margin-left: 380px ; margin-right: 200px ; margin-top: 100px">
+<div style="border-radius: 15px;background-color: #7abaff ; opacity: 0.9 ; width: 600px ; height: 600px ; margin-left: 380px ; margin-right: 200px ; margin-top: 50px">
     <form class="form-group" th:action="@{/teacher/addExam/(courseId = ${courseId})}" method="post" th:object="${exam}">
         <div style="padding: 5px 30px 30px">
             <label>نام آزمون</label><br>
@@ -21,12 +21,16 @@
             <input class="form-control" type="text" th:field="*{description}" name="description">
         </div>
         <div style="padding: 5px 30px 30px">
-            <label>تاربخ ایجاد دوره</label><br>
+            <label>تاربخ ایجاد آزمون</label><br>
             <input class="form-control" type="date" th:field="*{createdDate}" name="description">
         </div>
         <div style="padding: 5px 30px 30px">
             <label>زمان مورد نیاز(دقیقه)</label><br>
             <input class="form-control" type="text" th:field="*{time}" name="time">
+        </div>
+        <div style="padding: 5px 30px 30px">
+            <label>نمره قبولی آزمون</label><br>
+            <input class="form-control" type="text" th:field="*{passingScore}" name="time">
         </div>
         <div style="padding: 1px 30px 30px">
             <button type="submit" class="btn btn-primary" style="border-radius: 10px">

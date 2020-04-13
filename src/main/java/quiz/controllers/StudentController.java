@@ -41,7 +41,7 @@ public class StudentController {
         return "student";
     }
 
-    @RequestMapping("/signOut")//TODO : the background image destroyed
+    @RequestMapping("/signOut")
     public String signOut(){
         return "index";
     }
@@ -85,9 +85,9 @@ public class StudentController {
 
             return "no-permitted-exam";
         }else {
-//
-//            examService.findExamById(examId).getContributors().add(userService.findById(studentId));
-//            examService.saveExam(examService.findExamById(examId));
+
+            examService.findExamById(examId).getContributors().add(userService.findById(studentId));
+            examService.saveExam(examService.findExamById(examId));
 
             ExamPaper studentExamPaper = new ExamPaper();
             studentExamPaper.setExamId(examId);

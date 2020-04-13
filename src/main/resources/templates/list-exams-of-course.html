@@ -33,7 +33,11 @@
         <td th:text="${entry.value}" style="text-align: center"></td>
         <td th:text="${entry.key.passingScore}" style="text-align: center"></td>
 
-        <td style="text-align: center"><form th:action="@{/teacher/editExam/__${entry.key.id}__}"><button type="submit" class="btn btn-warning"></button></form>ویرایش</td>
+        <td style="text-align: center">
+            <form th:action="@{/teacher/editExam/__${entry.key.id}__}">
+                <button type="submit" class="btn btn-warning">ویرایش</button>
+            </form>
+        </td>
         <td style="text-align: center">
             <form th:action="@{/question/questions/__${entry.key.id}__}">
                 <button type="submit" class="btn btn-primary" value="questions">سوالات آزمون</button>
@@ -59,7 +63,7 @@
     </tbody>
 </table>
 
-<a th:href="@{/teacher/listTeacherCourses/(teacherId = ${courseService.findCourseById(courseId).teacher.id})}" class="btn btn-primary">برگشت به لیست دوره ها</a>
+<a th:href="@{/teacher/listTeacherCourses/__${courseService.findCourseById(courseId).teacher.id}__}" class="btn btn-primary">برگشت به لیست دوره ها</a>
 
 <script>
     function confirm(id) {

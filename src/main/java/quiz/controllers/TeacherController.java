@@ -85,6 +85,7 @@ public class TeacherController {
         newExam.setTime(exam.getTime());
         newExam.setPublished(false);
         newExam.setQuestions(null);
+        newExam.setPassingScore(exam.getPassingScore());
 
         examService.saveExam(newExam);
 
@@ -374,7 +375,7 @@ public class TeacherController {
     }
 
     @RequestMapping("/selectCorrectAnswer/{teacherId}/{multiChoiceQuestionId}")
-    public String selectCorrectAnswer(Model model ,
+    public String selectCorrectAnswer(Model model , RedirectAttributes ra ,
                                       @PathVariable("teacherId") Long teacherId ,
                                       @PathVariable("multiChoiceQuestionId") Long multiChoiceQuestionId ,
                                       @RequestParam(value = "correctAnswerId") Long correctAnswerId){
@@ -384,9 +385,9 @@ public class TeacherController {
         mlcQuestion.setCorrectAnswer(answerService.findAnswerById(correctAnswerId));
         questionService.save(mlcQuestion);
 
-        model.addAttribute("teacherId" , teacherId);
+        ra.addAttribute("teacherId" , teacherId);
 
-        return "successful-adding-multiChoiceQuestion";
+        return "redirect:/teacher/backToMainMenuOfTeacher";
 
     }
 
@@ -403,7 +404,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/addNewDetailedQuestion/{teacherId}" , method = RequestMethod.POST)
-    public String addNewDetQuestion(Model model ,
+    public String addNewDetQuestion(Model model , RedirectAttributes ra ,
                                     @ModelAttribute("detailedQuestion") DetailedQuestion detailedQuestion ,
                                     @PathVariable(value = "teacherId") Long teacherId){
 
@@ -418,9 +419,9 @@ public class TeacherController {
 
         questionService.save(newDetailedQuestion);
 
-        model.addAttribute("teacherId" , teacherId);
+        ra.addAttribute("teacherId" , teacherId);
 
-        return "successful-adding-detailedQuestion";
+        return "redirect:/teacher/backToMainMenuOfTeacher";
 
     }
 
